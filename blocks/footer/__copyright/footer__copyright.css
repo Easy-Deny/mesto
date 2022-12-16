@@ -1,9 +1,8 @@
-.profile__description {
+.footer__copyright {
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
     line-height: 22px;
+    color: #545454;
     margin: 0;
-    grid-column: 1/3;
-    text-align: left;
 }

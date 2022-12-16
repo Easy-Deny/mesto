@@ -1,5 +1,18 @@
-.elements{
+.elements {
     display: grid;
-    grid-template-columns: repeat( auto-fit, 282px);
+    grid-template-columns: repeat(auto-fit, 282px);
     gap: 20px 17px;
+}
+
+@media screen and (max-width:880px) {
+    .elements {
+        max-width: 584px;
+        margin: 0 auto;
+    }
+}
+@media screen and (max-width:584px) {
+    .elements {
+        max-width: 282px;
+        margin: 0 auto;
+    }
 }

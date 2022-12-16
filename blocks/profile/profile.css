@@ -1,8 +1,10 @@
 .profile{
 /*border: 1px red solid;*/
 display: flex;
+flex-wrap: wrap;
 position: relative;
 color: white;
 padding-top: 40px;
 padding-bottom: 50px;
+width: 100%;
 }
