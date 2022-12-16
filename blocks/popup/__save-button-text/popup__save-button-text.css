@@ -8,3 +8,11 @@
     margin: 0;
     vertical-align: middle;
 }
+@media screen and (max-width:490px) {
+    .popup__save-button-text {
+        font-size: 14px;
+        line-height: 17px;
+    }
+}
+
+
