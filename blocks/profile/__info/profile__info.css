@@ -5,3 +5,8 @@
     gap: 10px 18px;
     padding-left: 30px;
 }
+@media screen and (max-width:490px) {
+    .profile__info {
+        gap: 8px 10px;
+    }
+}

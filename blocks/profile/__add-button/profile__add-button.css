@@ -6,11 +6,17 @@
     background-repeat: no-repeat;
     width: 150px;
     height: 50px;
-    /*position: absolute;*/
-    right: 0;
     box-sizing: border-box;
     align-self: center;
     justify-self: end;
     background-color: black;
     margin-left: auto
+}
+@media screen and (max-width:490px) {
+    .profile__add-button {
+        justify-self: center;
+        margin: 0 auto;
+        width: 100%;
+        background-size: 16px;
+    }
 }

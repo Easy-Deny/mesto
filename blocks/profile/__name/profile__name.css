@@ -10,3 +10,12 @@
     padding-top: 20px;
     text-align: left;
 }
+
+@media screen and (max-width:490px) {
+    .profile__name {
+        font-size: 27px;
+        line-height: 33px;
+        text-align: center;
+        padding-top: 27px;
+    }
+}

@@ -1,7 +1,22 @@
-.header{
+.header {
     width: 100%;
     border-bottom: 1px #545454 solid;
     padding-top: 45px;
     padding-bottom: 35px;
     box-sizing: border-box;
+}
+
+@media screen and (max-width:880px) {
+    .header {
+        max-width: 90%;
+        margin: 0 auto;
+    }
+}
+
+@media screen and (max-width:490px) {
+    .header {
+        max-width: 100%;
+        padding-top: 25px;
+        padding-bottom: 30px;
+    }
 }
