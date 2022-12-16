@@ -3,5 +3,5 @@
     border-bottom: 1px #545454 solid;
     padding-top: 45px;
     padding-bottom: 41px;
-    /*border: 1px red solid;*/
+    box-sizing: border-box;
 }

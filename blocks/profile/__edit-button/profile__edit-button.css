@@ -6,4 +6,7 @@
     background-repeat: no-repeat;
     width: 24px;
     height: 24px;
+    box-sizing: border-box;
+    align-self: end;
+    margin-bottom: 8px;
 }
