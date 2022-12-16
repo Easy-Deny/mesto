@@ -1,0 +1,8 @@
+.popup__save-button{
+    width: 100%;
+    height: 50px;
+    background-color: black;
+    border-radius: 2px;
+    justify-self: end;
+    margin-top: auto;
+}
