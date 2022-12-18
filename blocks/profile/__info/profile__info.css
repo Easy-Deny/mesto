@@ -1,7 +1,7 @@
 .profile__info{
     display: grid;
     grid-template-columns: auto auto;
-    grid-template-rows: min-content min-content ;
+    grid-template-rows: min-content min-content;
     gap: 10px 18px;
     padding-left: 30px;
 }

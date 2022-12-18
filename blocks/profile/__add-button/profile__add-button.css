@@ -10,7 +10,7 @@
     align-self: center;
     justify-self: end;
     background-color: black;
-    margin-left: auto
+    margin-left: auto;
 }
 
 @media screen and (max-width:490px) {
