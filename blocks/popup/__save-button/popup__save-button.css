@@ -5,4 +5,22 @@
     border-radius: 2px;
     justify-self: end;
     margin-top: auto;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    color: #FFFFFF;
+    margin: 0;
+    vertical-align: middle;
+    border: none;
+}
+
+
+@media screen and (max-width:490px) {
+    .popup__save-button {
+        font-size: 14px;
+        line-height: 17px;
+    }
 }
