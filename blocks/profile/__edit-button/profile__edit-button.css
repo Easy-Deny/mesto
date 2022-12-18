@@ -19,3 +19,9 @@
         background-size: 7.5px;
     }
 }
+
+.profile__edit-button:hover{
+    opacity: 80%;
+    transition: opacity 0.5s ease-in-out;
+    -webkit-transition: opacity 0.5s ease-in-out;
+}
