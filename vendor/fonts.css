@@ -1,19 +1,19 @@
 @font-face {
     font-family: inter;
     font-weight: 400;
-    src: url(../vendor/fonts/Inter-Light.woff2)format(woff2);
-    src: url(../vendor/fonts/Inter-Light.woff)format(woff);
+    src: url(../vendor/fonts/Inter-Light.woff2) format('woff2');
+    src: url(../vendor/fonts/Inter-Light.woff) format('woff');
 }
 @font-face {
     font-family: inter;
     font-weight: 900;
-    src: url(../vendor/fonts/Inter-Bold.woff2)format(woff2);
-    src: url(../vendor/fonts/Inter-Bold.woff)format(woff);
+    src: url(../vendor/fonts/Inter-Bold.woff2) format('woff2');
+    src: url(../vendor/fonts/Inter-Bold.woff) format('woff');
 }
 @font-face {
     font-family: inter;
     font-weight: 500;
-    src: url(../vendor/fonts/Inter-Medium.woff2)format(woff2);
-    src: url(../vendor/fonts/Inter-Medium.woff)format(woff);
+    src: url(../vendor/fonts/Inter-Medium.woff2) format('woff2');
+    src: url(../vendor/fonts/Inter-Medium.woff) format('woff');
 }
 
