@@ -16,5 +16,5 @@
 
 ## Ссылки
 Страница разработана при поддержке [Яндекс практикум](https://www.practicum.yandex.ru)
-Ссылка на страницу в GitHubPages [Путешествие по России](https://easy-deny.github.io/russian-travel/)
+Ссылка на страницу в GitHubPages [mesto](https://easy-deny.github.io/mesto/)
 ------
