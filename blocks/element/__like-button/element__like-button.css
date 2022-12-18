@@ -8,3 +8,9 @@
     width: 24px;
     background-color: white;
 }
+
+.element__like-button:hover {
+    opacity: 50%;
+    transition: opacity 0.5s ease-in-out;
+    -webkit-transition: opacity 0.5s ease-in-out;
+}

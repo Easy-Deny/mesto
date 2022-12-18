@@ -2,11 +2,8 @@ const popupElement = document.querySelector('.popup');
 const popupCloseButtonElement = popupElement.querySelector('.popup__close-button');
 const popupSaveButtonElement = popupElement.querySelector('.popup__save-button');
 const popupOpenButtonElement = document.querySelector('.profile__edit-button');
+let likeButton = document.querySelector('.element__like-button');
 
-
-//const togglePopupVisibility = function() {
-//    popupElement.classList.toggle('popup_is-opened');
-//}
 function openPopup() {
     popupElement.classList.add('popup_is-opened');
     let profileName = document.querySelector('.profile__name');
@@ -31,8 +28,6 @@ const savePopup = function () {
         alert('длина подписи должна быть больше 3х символов');
     } else {
     console.log(popupName.value.length);
-    //console.log(popupName.value);
-    //console.log(popupDescription.value);
     let profileName = document.querySelector('.profile__name');
     let profileDescription = document.querySelector('.profile__description');
     profileName.textContent = popupName.value;
@@ -41,6 +36,22 @@ const savePopup = function () {
 }
 }
 
+const closePopupByClickOverlay = function(event){
+if (event.target === event.currentTarget) {
+    closePopup()
+}
+}
+
+const likeActivate = function(event){
+console.log(event.target);
+console.log(likeButton);
+likeButton = event.target;
+likeButton.classList.toggle('element__like-button_is-liked');
+    
+}
+
 popupOpenButtonElement.addEventListener('click', openPopup);
 popupCloseButtonElement.addEventListener('click', closePopup);
 popupSaveButtonElement.addEventListener('click', savePopup);
+likeButton.addEventListener('click', likeActivate);
+popupElement.addEventListener('click',closePopupByClickOverlay);
