@@ -1,5 +1,6 @@
 .profile__add-button {
-    border: white 1px solid;
+    border: 2px solid #FFFFFF;
+    border-radius: 2px;
     background-image: url(../../../images/add.svg);
     background-size: 22px;
     background-position: center;
@@ -26,4 +27,5 @@
     opacity: 60%;
     transition: opacity 0.5s ease-in-out;
     -webkit-transition: opacity 0.5s ease-in-out;
+    cursor: pointer;
 }
