@@ -1,6 +1,6 @@
 const popupElement = document.querySelector('.popup');
 const popupCloseButtonElement = popupElement.querySelector('.popup__close-button');
-const popupSaveButtonElement = popupElement.querySelector('.popup__save-button');
+const popupForm = popupElement.querySelector('.popup__content');
 const popupOpenButtonElement = document.querySelector('.profile__edit-button');
 let likeButton = document.querySelector('.element__like-button');
 let profileName = document.querySelector('.profile__name');
@@ -53,6 +53,6 @@ const closePopupByClickOverlay = function (event) {
 
 popupOpenButtonElement.addEventListener('click', openPopup);
 popupCloseButtonElement.addEventListener('click', closePopup);
-popupSaveButtonElement.addEventListener('click', savePopup);
+popupForm.addEventListener('submit', savePopup);
 //likeButton.addEventListener('click', likeActivate);
 popupElement.addEventListener('click', closePopupByClickOverlay);
