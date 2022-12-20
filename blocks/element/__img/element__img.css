@@ -1,4 +1,6 @@
 .element__img{
     max-width: 100%;
     max-height: fit-content;
+    object-position: center;
+    object-fit: cover;
 }
