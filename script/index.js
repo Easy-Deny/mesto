@@ -5,8 +5,8 @@ const popupOpenButtonElement = document.querySelector('.profile__edit-button');
 let likeButton = document.querySelector('.element__like-button');
 let profileName = document.querySelector('.profile__name');
 let profileDescription = document.querySelector('.profile__description');
-let popupName = popupElement.querySelector('.popup__text_name');
-let popupDescription = popupElement.querySelector('.popup__text_description');
+let popupName = popupElement.querySelector('.popup__text_type_name');
+let popupDescription = popupElement.querySelector('.popup__text_type_description');
 
 function openPopup() {
     popupElement.classList.add('popup_is-opened');
@@ -19,22 +19,23 @@ const closePopup = function () {
     popupElement.classList.remove('popup_is-opened');
 }
 
-const savePopup = function () {
+const savePopup = function (evt) {
     //let popupName = popupElement.querySelector('.popup__text_name');
     //let popupDescription = popupElement.querySelector('.popup__text_description');
     //if (popupName.value.length < 2) {
     //    alert('длина имени должна быть больше 3х символов');
-   // } else if (popupDescription.value.length < 2) {
-   //     alert('длина подписи должна быть больше 3х символов');
-   // } else {
-   //     console.log(popupName.value.length);
+    // } else if (popupDescription.value.length < 2) {
+    //     alert('длина подписи должна быть больше 3х символов');
+    // } else {
+    //     console.log(popupName.value.length);
     //    let profileName = document.querySelector('.profile__name');
     //    let profileDescription = document.querySelector('.profile__description');
-        profileName.textContent = popupName.value;
-        profileDescription.textContent = popupDescription.value;
-        closePopup();
-        return;
-   // }
+    evt.preventDefault();
+    profileName.textContent = popupName.value;
+    profileDescription.textContent = popupDescription.value;
+    closePopup();
+    return;
+    // }
 }
 
 //const likeActivate = function (event) {
