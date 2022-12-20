@@ -4,6 +4,7 @@
     grid-template-rows: min-content min-content;
     gap: 10px 18px;
     padding-left: 30px;
+    padding-right: 30px;
 }
 @media screen and (max-width:490px) {
     .profile__info {

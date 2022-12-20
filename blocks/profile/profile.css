@@ -1,7 +1,7 @@
 .profile{
 /*border: 1px red solid;*/
 display: flex;
-flex-wrap: wrap;
+flex-wrap: nowrap;
 position: relative;
 color: white;
 padding-top: 40px;
