@@ -1,4 +1,4 @@
-.profile__info{
+.profile__info {
     display: grid;
     grid-template-columns: auto auto;
     grid-template-rows: min-content min-content;
@@ -6,8 +6,11 @@
     padding-left: 30px;
     padding-right: 30px;
 }
+
 @media screen and (max-width:490px) {
     .profile__info {
         gap: 8px 10px;
+        padding-left: 46px;
+        padding-right: 14px;
     }
 }

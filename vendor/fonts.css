@@ -1,8 +1,8 @@
 @font-face {
     font-family: inter;
     font-weight: 400;
-    src: url(../vendor/fonts/Inter-Light.woff2) format('woff2');
-    src: url(../vendor/fonts/Inter-Light.woff) format('woff');
+    src: url(../vendor/fonts/Inter-Regular.woff2) format('woff2');
+    src: url(../vendor/fonts/Inter-Regular.woff) format('woff');
 }
 @font-face {
     font-family: inter;

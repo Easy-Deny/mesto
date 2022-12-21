@@ -10,8 +10,6 @@ let popupDescription = popupElement.querySelector('.popup__text_type_description
 
 function openPopup() {
     popupElement.classList.add('popup_is-opened');
-    //console.log(profileName.textContent);
-    //console.log(profileDescription.textContent);
     popupName.value = profileName.textContent;
     popupDescription.value = profileDescription.textContent;
 }
@@ -20,39 +18,22 @@ const closePopup = function () {
 }
 
 const savePopup = function (evt) {
-    //let popupName = popupElement.querySelector('.popup__text_name');
-    //let popupDescription = popupElement.querySelector('.popup__text_description');
-    //if (popupName.value.length < 2) {
-    //    alert('длина имени должна быть больше 3х символов');
-    // } else if (popupDescription.value.length < 2) {
-    //     alert('длина подписи должна быть больше 3х символов');
-    // } else {
-    //     console.log(popupName.value.length);
-    //    let profileName = document.querySelector('.profile__name');
-    //    let profileDescription = document.querySelector('.profile__description');
+
     evt.preventDefault();
     profileName.textContent = popupName.value;
     profileDescription.textContent = popupDescription.value;
     closePopup();
     return;
-    // }
+
 }
 
-//const likeActivate = function (event) {
-//    console.log(event.target);
-//    console.log(likeButton);
-//    likeButton = event.target;
-//    likeButton.classList.toggle('element__like-button_is-liked');
-//}
 const closePopupByClickOverlay = function (event) {
     if (event.target === event.currentTarget) {
         closePopup();
     }
 }
 
-
 popupOpenButtonElement.addEventListener('click', openPopup);
 popupCloseButtonElement.addEventListener('click', closePopup);
 popupForm.addEventListener('submit', savePopup);
-//likeButton.addEventListener('click', likeActivate);
 popupElement.addEventListener('click', closePopupByClickOverlay);

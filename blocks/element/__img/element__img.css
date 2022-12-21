@@ -2,5 +2,5 @@
     max-width: 100%;
     max-height: fit-content;
     object-position: center;
-    object-fit: cover;
+    object-fit: contain;
 }
