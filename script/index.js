@@ -8,10 +8,10 @@ const addPopupCloseButtonElement = addPopupElement.querySelector('.popup__close-
 const addPopupForm = addPopupElement.querySelector('.popup__content');
 let addPopupName = addPopupElement.querySelector('.popup__text_type_name');
 let addPopupLink = addPopupElement.querySelector('.popup__text_type_description');
-const photoPopupElement = document.querySelector('.popup_type_photo');
+const photoPopupElement = document.querySelector('.popup-photo');
 const photoPopupCloseButtonElement = photoPopupElement.querySelector('.popup__close-button');
-const photoLinkPopupElement = photoPopupElement.querySelector('.popup__img');
-const photoNamePopupElement = photoPopupElement.querySelector('.popup__name');
+const photoLinkPopupElement = photoPopupElement.querySelector('.popup-photo__img');
+const photoNamePopupElement = photoPopupElement.querySelector('.popup-photo__name');
 let profileName = document.querySelector('.profile__name');
 let profileDescription = document.querySelector('.profile__description');
 let popupName = popupElement.querySelector('.popup__text_type_name');
@@ -102,8 +102,8 @@ function addCard(cardName, cardLink) {
     });
     newElement.querySelector('.element__img').addEventListener('click', function (evt) {
         photoPopupElement.classList.add('popup_is-opened');
-        photoPopupElement.querySelector('.popup__img').src = evt.target.src;
-        photoPopupElement.querySelector('.popup__name').textContent = evt.target.parentElement.querySelector('.element__name').textContent;
+        photoPopupElement.querySelector('.popup-photo__img').src = evt.target.src;
+        photoPopupElement.querySelector('.popup-photo__name').textContent = evt.target.parentElement.querySelector('.element__name').textContent;
     });
     elements.prepend(newElement);
 };
