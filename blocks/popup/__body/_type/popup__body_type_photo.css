@@ -1,5 +1,5 @@
 .popup__body_type_photo{
     max-width: 75vw;
-    max-height: 75vw;
+    max-height: 75vh;
     position: relative;
 }
