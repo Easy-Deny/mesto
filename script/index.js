@@ -103,7 +103,6 @@ function addCard(cardName, cardLink) {
     newElement.querySelector('.element__img').addEventListener('click', function (evt) {
         photoPopupElement.classList.add('popup_is-opened');
         photoPopupElement.querySelector('.popup__img').src = evt.target.src;
-        console.log(evt.target.parentElement.querySelector('.element__name').textContent);
         photoPopupElement.querySelector('.popup__name').textContent = evt.target.parentElement.querySelector('.element__name').textContent;
     });
     elements.prepend(newElement);
