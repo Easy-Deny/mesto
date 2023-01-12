@@ -10,7 +10,7 @@
     position: absolute;
     top: 20px;
     right: 20px;
-    background-color: Transparent;
+    background-color: transparent;
 }
 
 .element__delete-button:hover {
