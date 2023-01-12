@@ -15,16 +15,16 @@ let profileDescription = document.querySelector('.profile__description');
 let popupName = popupElement.querySelector('.popup__text_type_name');
 let popupDescription = popupElement.querySelector('.popup__text_type_description');
 
-const openPopup = function() {
+const openPopup = function () {
     popupElement.classList.add('popup_is-opened');
     popupName.value = profileName.textContent;
     popupDescription.value = profileDescription.textContent;
 }
 
-const openAddPopup = function() {
+const openAddPopup = function () {
     addPopupElement.classList.add('popup_is-opened');
-    addPopupName.value='';
-    addPopupLink.value='';
+    addPopupName.value = '';
+    addPopupLink.value = '';
 }
 const closeAddPopup = function () {
     addPopupElement.classList.remove('popup_is-opened');
@@ -53,11 +53,11 @@ const closePopupByClickOverlay = function (event) {
     }
 }
 
-//const likeButtonLiked =  function(evt){
-//    console.log(evt.target);
-//    const likeButtonTarget = evt.target;
-//    likeButtonTarget.classList.add('element__like-button_is-liked');
-//};
+//const deleteCard = function(evt){
+//    const deleteElement = evt.target
+//    console.log(deleteElement);
+//}
+
 
 const initialCards = [
     {
@@ -96,7 +96,11 @@ function addCard(cardName, cardLink) {
     newElement.querySelector('.element__img').src = cardLink;
     newElement.querySelector('.element__img').alt = cardName;
     newElement.querySelector('.element__like-button').addEventListener('click', function (evt) {
-    evt.target.classList.toggle('element__like-button_is-liked');
+        evt.target.classList.toggle('element__like-button_is-liked');
+    });
+    newElement.querySelector('.element__delete-button').addEventListener('click', function (evt) {
+        const targetElement = evt.target;
+        targetElement.parentElement.remove();
     });
     elements.prepend(newElement);
 };
@@ -109,3 +113,4 @@ addPopupElement.addEventListener('click', closePopupByClickOverlay);
 addPopupOpenButtonElement.addEventListener('click', openAddPopup)
 addPopupCloseButtonElement.addEventListener('click', closeAddPopup);
 addPopupForm.addEventListener('submit', saveAddPopup);
+
