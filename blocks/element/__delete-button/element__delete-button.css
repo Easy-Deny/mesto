@@ -1,0 +1,21 @@
+.element__delete-button{
+    border: none;
+    background-image: url(../../../images/Trash.svg);
+    background-size: 19px;
+    background-position: center;
+    background-repeat: no-repeat;*/
+    box-sizing: border-box;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: Transparent;
+}
+
+.element__delete-button:hover {
+    opacity: 50%;
+    transition: opacity 0.5s ease-in-out;
+    -webkit-transition: opacity 0.5s ease-in-out;
+    cursor: pointer;
+}
