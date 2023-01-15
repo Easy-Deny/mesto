@@ -6,16 +6,16 @@ const addPopupElement = document.querySelector('.popup_type_add-card');
 const addPopupOpenButtonElement = document.querySelector('.profile__add-button');
 const addPopupCloseButtonElement = addPopupElement.querySelector('.popup__close-button');
 const addPopupForm = addPopupElement.querySelector('.popup__content');
-let addPopupName = addPopupElement.querySelector('.popup__text_type_name');
-let addPopupLink = addPopupElement.querySelector('.popup__text_type_description');
+const addPopupName = addPopupElement.querySelector('.popup__text_type_name');
+const addPopupLink = addPopupElement.querySelector('.popup__text_type_description');
 const photoPopupElement = document.querySelector('.popup-photo');
 const photoPopupCloseButtonElement = photoPopupElement.querySelector('.popup__close-button');
 const photoLinkPopupElement = photoPopupElement.querySelector('.popup-photo__img');
 const photoNamePopupElement = photoPopupElement.querySelector('.popup-photo__name');
-let profileName = document.querySelector('.profile__name');
-let profileDescription = document.querySelector('.profile__description');
-let popupName = popupElement.querySelector('.popup__text_type_name');
-let popupDescription = popupElement.querySelector('.popup__text_type_description');
+const profileName = document.querySelector('.profile__name');
+const profileDescription = document.querySelector('.profile__description');
+const popupName = popupElement.querySelector('.popup__text_type_name');
+const popupDescription = popupElement.querySelector('.popup__text_type_description');
 
 const openPopup = function () {
     popupElement.classList.add('popup_is-opened');
@@ -57,32 +57,6 @@ const closePopupByClickOverlay = function (event) {
         closePhotoPopup();
     }
 }
-const initialCards = [
-    {
-        name: 'Архыз',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-        name: 'Челябинская область',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-        name: 'Иваново',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-        name: 'Камчатка',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-        name: 'Холмогорский район',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-        name: 'Байкал',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-];
 
 initialCards.forEach(item => addCard(item.name, item.link));
 
