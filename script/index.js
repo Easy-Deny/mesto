@@ -24,10 +24,16 @@ const openEditProfileForm = function () {
     openPopup(popupEditProfile);
     editPopupName.value = profileName.textContent;
     editPopupDescription.value = profileDescription.textContent;
+    deactivateButton(formEditProfile);
 }
 const openAddCardForm = function (evt) {
     openPopup(popupAddCard);
     addPopupFormElement.reset();
+    deactivateButton(addPopupFormElement);
+}
+
+const deactivateButton = function (element) {
+    element.querySelector('.popup__save-button').classList.add("popup__save-button_inactive");
 }
 const openPopup = function (popup) {
     popup.classList.add('popup_is-opened');
@@ -37,15 +43,24 @@ const closePopup = function (popup) {
 }
 const submitEditProfileForm = function (evt) {
     evt.preventDefault();
+    if (!isButtonActive(evt.target)) {
     profileName.textContent = editPopupName.value;
     profileDescription.textContent = editPopupDescription.value;
     closePopup(popupEditProfile);
+    }
 }
 const submitAddCardForm = function (evt) {
     evt.preventDefault();
+    console.log(isButtonActive(evt.target));
+    if (!isButtonActive(evt.target)) {
     addCard(addPopupName.value, addPopupLink.value);
     closePopup(popupAddCard);
+    }
 }
+const isButtonActive = function(element) {
+    return (element.querySelector('.popup__save-button').classList.contains("popup__save-button_inactive"))  
+}
+
 const closePopupByClickOverlay = function (event) {
     if (event.target === event.currentTarget) {
         closePopup(event.target);
