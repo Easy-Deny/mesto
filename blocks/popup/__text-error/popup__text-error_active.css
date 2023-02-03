@@ -1,3 +1,11 @@
-.popup__text-error_active{
-    color:red;
+.popup__text-error_active {
+    color: red;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+    display: inline-block;
+    height: 0.1px;
+    z-index: 2;
 }

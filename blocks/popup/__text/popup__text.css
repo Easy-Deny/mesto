@@ -7,11 +7,12 @@
     border: none;
     border-bottom: 1px rgba(0, 0, 0, 0.2) solid;
     height: 35px;
+    
 }
 
 .popup__text:nth-of-type(2) {
     margin-top: 20px;
-    margin-bottom: 48px;
+    
     
 }
 
