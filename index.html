@@ -41,10 +41,10 @@
         <div class="popup__body">
             <button class="popup__close-button" type="button"></button>
             <h2 class="popup__title">Редактировать профиль</h2>
-            <form class="popup__content" action="#" name="form-profile">
-                <input class="popup__text popup__text_type_name" type="text" placeholder="Введите Имя" name="popupName">
+            <form class="popup__content" action="#" name="form-profile" novalidate>
+                <input class="popup__text popup__text_type_name" type="text" placeholder="Введите Имя" name="popupName" required minlength="2" maxlength="40">
                 <input class="popup__text popup__text_type_description" type="text" placeholder="Введите описание"
-                    name="popupDescription">
+                    name="popupDescription" required minlength="2" maxlength="200">
                 <button class="popup__save-button" title="Сохранить" type="submit">Сохранить</button>
             </form>
         </div>
@@ -53,10 +53,10 @@
         <div class="popup__body">
             <button class="popup__close-button" type="button"></button>
             <h2 class="popup__title">Новое место</h2>
-            <form class="popup__content" action="#" name="form-profile">
-                <input class="popup__text popup__text_type_name" type="text" placeholder="Название" name="popupName">
-                <input class="popup__text popup__text_type_description" type="text" placeholder="Ссылка на картинку"
-                    name="popupDescription">
+            <form class="popup__content" action="#" name="form-content" novalidate>
+                <input class="popup__text popup__text_type_name" type="text" placeholder="Название" name="popupName" required minlength="2" maxlength="30">
+                <input class="popup__text popup__text_type_description" type="url" placeholder="Ссылка на картинку"
+                    name="popupDescription" required>
                 <button class="popup__save-button" title="Сохранить" type="submit">Сохранить</button>
             </form>
         </div>
@@ -65,12 +65,11 @@
         <div class="popup-photo__body">
             <button class="popup__close-button" type="button"></button>
             <img class="popup-photo__img" src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg">
-            <p class="popup-photo__name">aefewfwrehhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhef</p>
+            <p class="popup-photo__name"></p>
         </div>
     </div>
     <script src="./script/constants.js"></script>
     <script src="./script/index.js"></script>
-    
+    <script src="./script/validate.js"></script>
 </body>
-
 </html>
