@@ -31,12 +31,23 @@ const openAddCardForm = function (evt) {
     addPopupFormElement.reset();
     deactivateButton(addPopupFormElement);
 }
-
 const deactivateButton = function (element) {
     element.querySelector('.popup__save-button').classList.add("popup__save-button_inactive");
 }
 const openPopup = function (popup) {
     popup.classList.add('popup_is-opened');
+    const inputList = Array.from(popup.querySelectorAll('.popup__text'));
+    inputList.forEach((inputElement) => {
+        if (inputElement.classList.contains("popup__text_type_error")) {
+            inputElement.classList.remove("popup__text_type_error");
+        }
+    })
+    const errorList = Array.from(popup.querySelectorAll('.popup__text-error'));
+    errorList.forEach((errorMessage) => {
+        if (errorMessage.textContent != '') {
+            errorMessage.textContent = '';
+        }
+    })
 }
 const closePopup = function (popup) {
     popup.classList.remove('popup_is-opened');
@@ -44,21 +55,21 @@ const closePopup = function (popup) {
 const submitEditProfileForm = function (evt) {
     evt.preventDefault();
     if (!isButtonActive(evt.target)) {
-    profileName.textContent = editPopupName.value;
-    profileDescription.textContent = editPopupDescription.value;
-    closePopup(popupEditProfile);
+        profileName.textContent = editPopupName.value;
+        profileDescription.textContent = editPopupDescription.value;
+        closePopup(popupEditProfile);
     }
 }
 const submitAddCardForm = function (evt) {
     evt.preventDefault();
     console.log(isButtonActive(evt.target));
     if (!isButtonActive(evt.target)) {
-    addCard(addPopupName.value, addPopupLink.value);
-    closePopup(popupAddCard);
+        addCard(addPopupName.value, addPopupLink.value);
+        closePopup(popupAddCard);
     }
 }
-const isButtonActive = function(element) {
-    return (element.querySelector('.popup__save-button').classList.contains("popup__save-button_inactive"))  
+const isButtonActive = function (element) {
+    return (element.querySelector('.popup__save-button').classList.contains("popup__save-button_inactive"))
 }
 
 const closePopupByClickOverlay = function (event) {
