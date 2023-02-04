@@ -37,7 +37,6 @@ const deactivateButton = function (element) {
 const openPopup = function (popup) {
     popup.classList.add('popup_is-opened');
     document.addEventListener('keydown',closePopupByEscButton);
-    //console.log(popup);
     const inputList = Array.from(popup.querySelectorAll('.popup__text'));
     inputList.forEach((inputElement) => {
         if (inputElement.classList.contains("popup__text_type_error")) {
@@ -136,4 +135,4 @@ photoPopupCloseButtonElement.addEventListener('click', () => closePopup(photoPop
     errorClass: 'popup__text-error_active'
   }; 
   enableValidation(validData);
-  //enableValidation();
+ 
