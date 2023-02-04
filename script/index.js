@@ -36,8 +36,8 @@ const deactivateButton = function (element) {
 }
 const openPopup = function (popup) {
     popup.classList.add('popup_is-opened');
+    document.addEventListener('keydown',closePopupByEscButton);
     //console.log(popup);
-    //popup.addEventListener('keydown', () => closePopup(popup));
     const inputList = Array.from(popup.querySelectorAll('.popup__text'));
     inputList.forEach((inputElement) => {
         if (inputElement.classList.contains("popup__text_type_error")) {
@@ -53,6 +53,7 @@ const openPopup = function (popup) {
 }
 const closePopup = function (popup) {
     popup.classList.remove('popup_is-opened');
+    document.removeEventListener('keydown',closePopupByEscButton);
 }
 const submitEditProfileForm = function (evt) {
     evt.preventDefault();
@@ -125,7 +126,14 @@ addPopupOpenButtonElement.addEventListener('click', openAddCardForm)
 addPopupCloseButtonElement.addEventListener('click', () => closePopup(popupAddCard));
 formAddCard.addEventListener('submit', submitAddCardForm);
 photoPopupCloseButtonElement.addEventListener('click', () => closePopup(photoPopupElement));
-document.addEventListener('keydown', closePopupByEscButton);
 
-
-
+    const validData = {
+    formSelector: '.popup__content',
+    inputSelector: '.popup__text',
+    submitButtonSelector: '.popup__save-button',
+    inactiveButtonClass: 'popup__save-button_inactive',
+    inputErrorClass: 'popup__text_type_error',
+    errorClass: 'popup__text-error_active'
+  }; 
+  enableValidation(validData);
+  //enableValidation();
