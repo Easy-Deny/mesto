@@ -36,6 +36,8 @@ const deactivateButton = function (element) {
 }
 const openPopup = function (popup) {
     popup.classList.add('popup_is-opened');
+    //console.log(popup);
+    //popup.addEventListener('keydown', () => closePopup(popup));
     const inputList = Array.from(popup.querySelectorAll('.popup__text'));
     inputList.forEach((inputElement) => {
         if (inputElement.classList.contains("popup__text_type_error")) {
@@ -77,6 +79,13 @@ const closePopupByClickOverlay = function (event) {
         closePopup(event.target);
     }
 }
+
+const closePopupByEscButton = function (evt) {
+    const openedPopup = document.querySelector('.popup_is-opened');
+    if (evt.keyCode === 27 && openedPopup != null) {
+        closePopup(openedPopup);
+    }
+}
 initialCards.forEach(item => addCard(item.name, item.link));
 
 function createCard(cardName, cardLink) {
@@ -116,4 +125,7 @@ addPopupOpenButtonElement.addEventListener('click', openAddCardForm)
 addPopupCloseButtonElement.addEventListener('click', () => closePopup(popupAddCard));
 formAddCard.addEventListener('submit', submitAddCardForm);
 photoPopupCloseButtonElement.addEventListener('click', () => closePopup(photoPopupElement));
+document.addEventListener('keydown', closePopupByEscButton);
+
+
 
