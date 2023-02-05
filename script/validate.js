@@ -18,8 +18,10 @@ const hasInvalidInput = (inputList) => {
 const toggleButtonState = (inputList, buttonElement, validData) => {
     if (hasInvalidInput(inputList)) {
         buttonElement.classList.add(validData.inactiveButtonClass);
+        buttonElement.disabled = true;
     } else {
         buttonElement.classList.remove(validData.inactiveButtonClass);
+        buttonElement.disabled = false;
     }
 }
 const checkInputValidity = (formElement, inputElement, validData) => {
@@ -49,5 +51,20 @@ const enableValidation = (validData) => {
         setEventListeners(formElement, validData);
     });
 };
-
-
+const disableSubmitButton = function (element,validData) {
+    element.querySelector(validData.submitButtonSelector).classList.add(validData.inactiveButtonClass);
+}
+const removeValidationErrors = function(popup,validData) {
+    const inputList = Array.from(popup.querySelectorAll(validData.inputSelector));
+    inputList.forEach((inputElement) => {
+        if (inputElement.classList.contains(validData.inputErrorClass)) {
+            inputElement.classList.remove(validData.inputErrorClass);
+        }
+    });
+    const errorList = Array.from(popup.querySelectorAll(validData.errorMessageClass));
+    errorList.forEach((errorMessage) => {
+        if (errorMessage.textContent != '') {
+            errorMessage.textContent = '';
+        }
+    });
+}
