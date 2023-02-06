@@ -35,17 +35,18 @@ const openEditProfileForm = function () {
     editPopupName.value = profileName.textContent;
     editPopupDescription.value = profileDescription.textContent;
     disableSubmitButton(formEditProfile, validationConfig);
+    removeValidationErrors(popupEditProfile, validationConfig);
 }
 const openAddCardForm = function (evt) {
     openPopup(popupAddCard);
     addPopupFormElement.reset();
     disableSubmitButton(addPopupFormElement, validationConfig);
+    removeValidationErrors(popupAddCard, validationConfig);
 }
 
 const openPopup = function (popup) {
     popup.classList.add('popup_is-opened');
     document.addEventListener('keydown', closePopupByEscButton);
-    removeValidationErrors(popup, validationConfig);
 }
 const closePopup = function (popup) {
     popup.classList.remove('popup_is-opened');
@@ -55,14 +56,14 @@ const submitEditProfileForm = function (evt) {
     evt.preventDefault();
     if (!isButtonActive(evt.target)) {
         profileName.textContent = editPopupName.value;
-        profileDescription.textContent = editPopupDescription.value;
+        profileDescription.textContent = editPopupDescription.value;      
         closePopup(popupEditProfile);
     }
 }
 const submitAddCardForm = function (evt) {
     evt.preventDefault();
     if (!isButtonActive(evt.target)) {
-        addCard(addPopupName.value, addPopupLink.value);
+        addCard(addPopupName.value, addPopupLink.value);       
         closePopup(popupAddCard);
     }
 }
@@ -79,7 +80,7 @@ const closePopupByClickOverlay = function (event) {
 const closePopupByEscButton = function (evt) {
     if (evt.keyCode === escKeyCode) {
         const openedPopup = document.querySelector('.popup_is-opened');
-        if (openedPopup != null) {
+        if (openedPopup !== null) {
             closePopup(openedPopup);
         }
     }
