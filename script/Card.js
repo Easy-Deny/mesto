@@ -1,0 +1,38 @@
+class Card {
+    constructor(cardName, cardLink, tempElementSelector, photoPopupElement, openPopup) {
+        this._cardName = cardName;
+        this._cardLink = cardLink;
+        this._tempElementSelector = tempElementSelector;
+        this._photoPopupElement = photoPopupElement;
+        this._openPopup = openPopup;
+    }
+    _createEmptyCard(element) {
+        this._tempElement = document.querySelector(element).content;
+        this._createdCard = this._tempElement.querySelector('.element').cloneNode(true);
+    }
+    _fillEmptyCard(createdCard) {
+        this._createdCardImg = createdCard.querySelector('.element__img');
+        createdCard.querySelector('.element__name').textContent = this._cardName;
+        this._createdCardImg.src = this._cardLink;
+        this._createdCardImg.alt = this._cardName;
+    }
+    _addEventListeners(element, func) {
+        this._createdCard.querySelector(element).addEventListener('click', function (evt) {
+            func(evt);
+        });
+    }
+    _addReaction(evt) {
+        evt.target.classList.toggle('element__like-button_is-liked')
+    }
+    _deleteCard(evt) {
+        evt.target.parentElement.remove();
+    }
+    createCard() {
+        this._createEmptyCard(this._tempElementSelector);
+        this._fillEmptyCard(this._createdCard);
+        this._addEventListeners('.element__like-button', this._addReaction);
+        this._addEventListeners('.element__delete-button', this._deleteCard);
+        return this._createdCard;
+    }
+}
+export { Card };
