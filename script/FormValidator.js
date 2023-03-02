@@ -1,45 +1,37 @@
 class FormValidator {
-    constructor(validData, element) {
+    constructor(validData, form) {
         this._validData = validData;
-        this._element = element;
+        this._form = form;
+        this._inputList = Array.from(this._form.querySelectorAll(this._validData.inputSelector));
+        this._buttonElement = this._form.querySelector(this._validData.submitButtonSelector);
     }
 
     enableValidation() {
-        
-        this.formList = Array.from(document.querySelectorAll(this._validData.formSelector));
-        this.formList.forEach((formElement) => {
-            formElement.addEventListener('submit', function (evt) {
-                evt.preventDefault();
-            });
-            this._setEventListeners(formElement, this._validData);
+        this._form.addEventListener('submit', (evt) => {
+            evt.preventDefault();
         });
+        this._setEventListeners(this._form, this._validData);
+        this. _removeValidationErrors(this._form, this._validData);
     }
     _setEventListeners(formElement, validData) {
-        this._inputList = Array.from(formElement.querySelectorAll(validData.inputSelector));
-        this._buttonElement = formElement.querySelector(validData.submitButtonSelector);
         this._toggleButtonState(this._inputList, this._buttonElement, validData);
         this._inputList.forEach((inputElement) => {
-           
-            inputElement.addEventListener('input',  ()=> {
+            inputElement.addEventListener('input', () => {
                 this._toggleButtonState(this._inputList, this._buttonElement, validData);
-                this._checkInputValidity(formElement, inputElement, validData);          
-               
+                this._checkInputValidity(formElement, inputElement, validData);
             });
         });
     };
     _toggleButtonState(inputList, buttonElement, validData) {
         if (this._hasInvalidInput(inputList)) {
-           
-            buttonElement.classList.add(this._validData.inactiveButtonClass);
-            buttonElement.disabled = true;
+            this._disableSubmitButton(buttonElement, validData);
         } else {
-            buttonElement.classList.remove(this._validData.inactiveButtonClass);
-            buttonElement.disabled = false;
+            this._enableSubmitButton(buttonElement, validData);  
         }
     }
     _hasInvalidInput(inputList) {
         return inputList.some((inputElement) => {
-           
+
             return !inputElement.validity.valid;
         })
     }
@@ -62,17 +54,21 @@ class FormValidator {
         this._errorElement.classList.remove(validData.errorClass);
         this._errorElement.textContent = '';
     };
-    disableSubmitButton(element) {
-        element.querySelector(this._validData.submitButtonSelector).classList.add(this._validData.inactiveButtonClass);
+    _disableSubmitButton(buttonElement,validData) {
+        buttonElement.classList.add(validData.inactiveButtonClass);
+        buttonElement.disabled = true;
     }
-    removeValidationErrors(element) {
-        this._inputList = Array.from(element.querySelectorAll(this._validData.inputSelector));
+    _enableSubmitButton(buttonElement,validData){
+        buttonElement.classList.remove(validData.inactiveButtonClass);
+        buttonElement.disabled = false;
+    }
+    _removeValidationErrors(element,validData) {
         this._inputList.forEach((inputElement) => {
-            if (inputElement.classList.contains(this._validData.inputErrorClass)) {
-                inputElement.classList.remove(this._validData.inputErrorClass);
+            if (inputElement.classList.contains(validData.inputErrorClass)) {
+                inputElement.classList.remove(validData.inputErrorClass);
             }
         });
-        this._errorList = Array.from(element.querySelectorAll(this._validData.errorMessageClass));
+        this._errorList = Array.from(element.querySelectorAll(validData.errorMessageClass));
         this._errorList.forEach((errorMessage) => {
             if (errorMessage.textContent != '') {
                 errorMessage.textContent = '';
