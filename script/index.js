@@ -13,8 +13,8 @@ const addPopupName = popupAddCard.querySelector('.popup__text_type_name');
 const addPopupLink = popupAddCard.querySelector('.popup__text_type_description');
 const photoPopupElement = document.querySelector('.popup-photo');
 const photoPopupCloseButtonElement = photoPopupElement.querySelector('.popup__close-button');
-//const photoLinkPopupElement = photoPopupElement.querySelector('.popup-photo__img');
-//const photoNamePopupElement = photoPopupElement.querySelector('.popup-photo__name');
+const photoPopupElementImg = photoPopupElement.querySelector('.popup-photo__img');
+const photoPopupElementName = photoPopupElement.querySelector('.popup-photo__name');
 const profileName = document.querySelector('.profile__name');
 const profileDescription = document.querySelector('.profile__description');
 const editPopupName = popupEditProfile.querySelector('.popup__text_type_name');
@@ -86,7 +86,7 @@ const closePopupByEscButton = function (evt) {
 }
 initialCards.forEach(item => addCard(item.name, item.link));
 
-function addPictureEventListener(element) {
+/* function addPictureEventListener(element) {
     const elementImg = element.querySelector('.element__img');
     const elementText = element.querySelector('.element__description').textContent;
     const photoPopupElementImg = photoPopupElement.querySelector('.popup-photo__img');
@@ -97,11 +97,11 @@ function addPictureEventListener(element) {
         photoPopupElementImg.alt = elementText;
         photoPopupElementName.textContent = elementText;
     });
-}
+} */
 function addCard(cardName, cardLink) {
     const newElement = new Card(cardName, cardLink, tempElementSelector);
     const newCard = newElement.createCard();
-    addPictureEventListener(newCard);
+    //addPictureEventListener(newCard);
     elements.prepend(newCard);
 };
 editPopupOpenButtonElement.addEventListener('click', openEditProfileForm);
@@ -116,6 +116,6 @@ formAddCard.addEventListener('submit', submitAddCardForm);
 photoPopupCloseButtonElement.addEventListener('click', () => closePopup(photoPopupElement));
 
 
-
+export {openPopup, photoPopupElement, photoPopupElementImg, photoPopupElementName};
 
 
