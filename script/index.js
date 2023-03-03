@@ -1,18 +1,15 @@
 import { Card } from './Card.js';
 import { FormValidator } from './FormValidator.js';
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
-const editPopupCloseButtonElement = popupEditProfile.querySelector('.popup__close-button');
 const formEditProfile = popupEditProfile.querySelector('.popup__content');
 const editPopupOpenButtonElement = document.querySelector('.profile__edit-button');
 const popupAddCard = document.querySelector('.popup_type_add-card');
 const addPopupFormElement = popupAddCard.querySelector('.popup__content')
 const addPopupOpenButtonElement = document.querySelector('.profile__add-button');
-const addPopupCloseButtonElement = popupAddCard.querySelector('.popup__close-button');
 const formAddCard = popupAddCard.querySelector('.popup__content');
 const addPopupName = popupAddCard.querySelector('.popup__text_type_name');
 const addPopupLink = popupAddCard.querySelector('.popup__text_type_description');
 const photoPopupElement = document.querySelector('.popup-photo');
-const photoPopupCloseButtonElement = photoPopupElement.querySelector('.popup__close-button');
 const photoPopupElementImg = photoPopupElement.querySelector('.popup-photo__img');
 const photoPopupElementName = photoPopupElement.querySelector('.popup-photo__name');
 const profileName = document.querySelector('.profile__name');
@@ -21,6 +18,7 @@ const editPopupName = popupEditProfile.querySelector('.popup__text_type_name');
 const editPopupDescription = popupEditProfile.querySelector('.popup__text_type_description');
 const tempElementSelector = '.temp-element';
 const elements = document.querySelector('.elements');
+const popups = document.querySelectorAll('.popup')
 const validationConfig = {
     formSelector: '.popup__content',
     inputSelector: '.popup__text',
@@ -67,11 +65,6 @@ const submitAddCardForm = function (evt) {
     addCard(addPopupName.value, addPopupLink.value);
     closePopup(popupAddCard);
 }
-const closePopupByClickOverlay = function (event) {
-    if (event.target === event.currentTarget) {
-        closePopup(event.target);
-    }
-}
 const closePopupByEscButton = function (evt) {
     if (evt.keyCode === escKeyCode) {
         const openedPopup = document.querySelector('.popup_is-opened');
@@ -90,15 +83,19 @@ function addCard(cardName, cardLink) {
     elements.prepend(createdCard);
 };
 editPopupOpenButtonElement.addEventListener('click', openEditProfileForm);
-editPopupCloseButtonElement.addEventListener('click', () => closePopup(popupEditProfile));
 formEditProfile.addEventListener('submit', submitEditProfileForm);
-popupEditProfile.addEventListener('click', closePopupByClickOverlay);
-popupAddCard.addEventListener('click', closePopupByClickOverlay);
-photoPopupElement.addEventListener('click', closePopupByClickOverlay);
 addPopupOpenButtonElement.addEventListener('click', openAddCardForm)
-addPopupCloseButtonElement.addEventListener('click', () => closePopup(popupAddCard));
 formAddCard.addEventListener('submit', submitAddCardForm);
-photoPopupCloseButtonElement.addEventListener('click', () => closePopup(photoPopupElement));
+popups.forEach((popup) => {
+    popup.addEventListener('mousedown', (evt) => {
+        if (evt.target.classList.contains('popup_is-opened')) {
+            closePopup(popup)
+        }
+        if (evt.target.classList.contains('popup__close-button')) {
+          closePopup(popup)
+        }
+    })
+})
 
 export { openPopup, photoPopupElement, photoPopupElementImg, photoPopupElementName };
 
