@@ -1,12 +1,12 @@
 import { Card } from './Card.js';
 import { FormValidator } from './FormValidator.js';
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
-const formEditProfile = popupEditProfile.querySelector('.popup__content');
+const formEditProfile = document.forms['form-profile'];
 const editPopupOpenButtonElement = document.querySelector('.profile__edit-button');
 const popupAddCard = document.querySelector('.popup_type_add-card');
 const addPopupFormElement = popupAddCard.querySelector('.popup__content')
 const addPopupOpenButtonElement = document.querySelector('.profile__add-button');
-const formAddCard = popupAddCard.querySelector('.popup__content');
+const formAddCard = document.forms['form-content'];
 const addPopupName = popupAddCard.querySelector('.popup__text_type_name');
 const addPopupLink = popupAddCard.querySelector('.popup__text_type_description');
 const photoPopupElement = document.querySelector('.popup-photo');
