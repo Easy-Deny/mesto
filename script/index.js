@@ -31,18 +31,23 @@ const validationConfig = {
     errorMessageClass: '.popup__text-error'
 };
 const escKeyCode = 27;
+const editFormValidation = new FormValidator(validationConfig, formEditProfile);
+const addFormValidation = new FormValidator(validationConfig, formAddCard);
+editFormValidation.enableValidation();
+addFormValidation.enableValidation();
 const openEditProfileForm = function () {
     openPopup(popupEditProfile);
-    new FormValidator(validationConfig,formEditProfile).enableValidation();
     editPopupName.value = profileName.textContent;
     editPopupDescription.value = profileDescription.textContent;
+    editFormValidation.resetValidation();
+    
 }
-const openAddCardForm = function (evt) {
+const openAddCardForm = function () {
     openPopup(popupAddCard);
-    new FormValidator(validationConfig,formAddCard).enableValidation();
     addPopupFormElement.reset();
+    addFormValidation.resetValidation();
+    
 }
-
 const openPopup = function (popup) {
     popup.classList.add('popup_is-opened');
     document.addEventListener('keydown', closePopupByEscButton);
@@ -53,29 +58,20 @@ const closePopup = function (popup) {
 }
 const submitEditProfileForm = function (evt) {
     evt.preventDefault();
-    if (!isButtonActive(evt.target)) {
-        profileName.textContent = editPopupName.value;
-        profileDescription.textContent = editPopupDescription.value;
-        closePopup(popupEditProfile);
-    }
+    profileName.textContent = editPopupName.value;
+    profileDescription.textContent = editPopupDescription.value;
+    closePopup(popupEditProfile);
 }
 const submitAddCardForm = function (evt) {
     evt.preventDefault();
-    if (!isButtonActive(evt.target)) {
-        addCard(addPopupName.value, addPopupLink.value);
-        closePopup(popupAddCard);
-    }
+    addCard(addPopupName.value, addPopupLink.value);
+    closePopup(popupAddCard);
 }
-const isButtonActive = function (element) {
-    return (element.querySelector('.popup__save-button').classList.contains("popup__save-button_inactive"))
-}
-
 const closePopupByClickOverlay = function (event) {
     if (event.target === event.currentTarget) {
         closePopup(event.target);
     }
 }
-
 const closePopupByEscButton = function (evt) {
     if (evt.keyCode === escKeyCode) {
         const openedPopup = document.querySelector('.popup_is-opened');
@@ -85,24 +81,13 @@ const closePopupByEscButton = function (evt) {
     }
 }
 initialCards.forEach(item => addCard(item.name, item.link));
-
-/* function addPictureEventListener(element) {
-    const elementImg = element.querySelector('.element__img');
-    const elementText = element.querySelector('.element__description').textContent;
-    const photoPopupElementImg = photoPopupElement.querySelector('.popup-photo__img');
-    const photoPopupElementName = photoPopupElement.querySelector('.popup-photo__name');
-    elementImg.addEventListener('click', function () {
-        openPopup(photoPopupElement);
-        photoPopupElementImg.src = elementImg.src;
-        photoPopupElementImg.alt = elementText;
-        photoPopupElementName.textContent = elementText;
-    });
-} */
+function createNewCard(cardName, cardLink) {
+    const newCard = new Card(cardName, cardLink, tempElementSelector).createCard();
+    return newCard
+}
 function addCard(cardName, cardLink) {
-    const newElement = new Card(cardName, cardLink, tempElementSelector);
-    const newCard = newElement.createCard();
-    //addPictureEventListener(newCard);
-    elements.prepend(newCard);
+    const createdCard = createNewCard(cardName, cardLink)
+    elements.prepend(createdCard);
 };
 editPopupOpenButtonElement.addEventListener('click', openEditProfileForm);
 editPopupCloseButtonElement.addEventListener('click', () => closePopup(popupEditProfile));
@@ -115,7 +100,6 @@ addPopupCloseButtonElement.addEventListener('click', () => closePopup(popupAddCa
 formAddCard.addEventListener('submit', submitAddCardForm);
 photoPopupCloseButtonElement.addEventListener('click', () => closePopup(photoPopupElement));
 
-
-export {openPopup, photoPopupElement, photoPopupElementImg, photoPopupElementName};
+export { openPopup, photoPopupElement, photoPopupElementImg, photoPopupElementName };
 
 

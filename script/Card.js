@@ -30,7 +30,6 @@ class Card {
         evt.target.closest('.element').remove();
     }
     _openPreviewPicture(evt) {
-        console.log(evt.target);
         photoPopupElementImg.src = evt.target.src;
         photoPopupElementName.textContent = evt.target.alt;
         photoPopupElementImg.alt = evt.target.alt;
