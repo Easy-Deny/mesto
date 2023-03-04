@@ -3,7 +3,6 @@ class FormValidator {
         this._validData = validData;
         this._form = form;
         this._inputList = Array.from(this._form.querySelectorAll(this._validData.inputSelector));
-        this._errorList = Array.from(this._form.querySelectorAll(this._validData.errorMessageClass));
         this._buttonElement = this._form.querySelector(this._validData.submitButtonSelector);
     }
 
@@ -11,12 +10,10 @@ class FormValidator {
         this._form.addEventListener('submit', (evt) => {
             evt.preventDefault();
         });
-        //this._disableSubmitButton(this._buttonElement,this._validData)
         this._setEventListeners();
-        this.resetValidation();
     }
     _setEventListeners() {
-        this._toggleButtonState(this._inputList, this._buttonElement, this.validData);
+        this._toggleButtonState();
         this._inputList.forEach((inputElement) => {
             inputElement.addEventListener('input', () => {
                 this._toggleButtonState();
@@ -66,10 +63,7 @@ class FormValidator {
     }
     resetValidation() {
         this._inputList.forEach((inputElement) => {
-            this._removeValidationErrors(inputElement);
-        });
-        this._errorList.forEach((errorMessage) => {
-            errorMessage.textContent = '';
+            this._hideInputError(inputElement);
         });
         this._disableSubmitButton();
     }
