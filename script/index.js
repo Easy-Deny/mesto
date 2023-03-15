@@ -1,5 +1,7 @@
-import { Card } from './Card.js';
-import { FormValidator } from './FormValidator.js';
+import { Card } from './Components/Card.js';
+import { FormValidator } from './Components/FormValidator.js';
+import { initialCards } from './Utils/constants.js';
+import Section from './Components/Section.js';
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
 const formEditProfile = document.forms['form-profile'];
 const editPopupOpenButtonElement = document.querySelector('.profile__edit-button');
@@ -73,11 +75,19 @@ const closePopupByEscButton = function (evt) {
         }
     }
 }
-initialCards.forEach(item => addCard(item.name, item.link));
+//initialCards.forEach(item => addCard(item.name, item.link));
 function createNewCard(cardName, cardLink) {
     const newCard = new Card(cardName, cardLink, tempElementSelector).createCard();
     return newCard
 }
+    const cardContainer = '.elements';
+const newSection = new Section({data:initialCards,renderer: (item)=>{
+   const card =  new Card(item.name, item.link, tempElementSelector).createCard();
+    newSection.addItem(card);
+}},
+cardContainer);
+newSection.createSection();
+
 function addCard(cardName, cardLink) {
     const createdCard = createNewCard(cardName, cardLink)
     elements.prepend(createdCard);

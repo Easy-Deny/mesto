@@ -1,4 +1,4 @@
-import { openPopup, photoPopupElement,photoPopupElementImg, photoPopupElementName } from "./index.js";
+import { openPopup, photoPopupElement,photoPopupElementImg, photoPopupElementName } from "../index.js";
 
 class Card {
     constructor(cardName, cardLink, tempElementSelector) {
