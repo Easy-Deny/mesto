@@ -26,3 +26,4 @@ export const initialCards = [
 ];
 export const escKeyCode = 27;
 export const openedPopupSelector = 'popup_is-opened';
+export const photoPopupSelector= 'popup-photo';

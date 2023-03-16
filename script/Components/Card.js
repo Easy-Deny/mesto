@@ -1,4 +1,6 @@
 import { openPopup, photoPopupElement,photoPopupElementImg, photoPopupElementName } from "../index.js";
+import { PopupWithImage } from "./PopupWithImage.js";
+import { photoPopupSelector } from "../Utils/constants.js";
 
 class Card {
     constructor(cardName, cardLink, tempElementSelector) {
@@ -30,10 +32,13 @@ class Card {
         evt.target.closest('.element').remove();
     }
     _openPreviewPicture(evt) {
-        photoPopupElementImg.src = evt.target.src;
+        //console.log(photoPopupSelector);
+       new PopupWithImage(evt.target,photoPopupSelector).openPopup();
+       
+   /*      photoPopupElementImg.src = evt.target.src;
         photoPopupElementName.textContent = evt.target.alt;
         photoPopupElementImg.alt = evt.target.alt;
-        openPopup(photoPopupElement);
+        openPopup(photoPopupElement); */
     }
     _setEventListeners() {
         this._addEventListeners('.element__like-button', this._addReaction);

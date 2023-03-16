@@ -17,8 +17,8 @@ export default class Section{
           });
       }
     addItem(element) {
-      console.log(element);
-      console.log(this._container);
+      //console.log(element);
+      //console.log(this._container);
         this._container.prepend(element);
     };
 }

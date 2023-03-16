@@ -2,6 +2,8 @@ import { Card } from './Components/Card.js';
 import { FormValidator } from './Components/FormValidator.js';
 import { initialCards } from './Utils/constants.js';
 import Section from './Components/Section.js';
+
+
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
 const formEditProfile = document.forms['form-profile'];
 const editPopupOpenButtonElement = document.querySelector('.profile__edit-button');
@@ -35,6 +37,7 @@ const editFormValidation = new FormValidator(validationConfig, formEditProfile);
 const addFormValidation = new FormValidator(validationConfig, formAddCard);
 editFormValidation.enableValidation();
 addFormValidation.enableValidation();
+
 const openEditProfileForm = function () {
     openPopup(popupEditProfile);
     editPopupName.value = profileName.textContent;
@@ -76,10 +79,10 @@ const closePopupByEscButton = function (evt) {
     }
 }
 //initialCards.forEach(item => addCard(item.name, item.link));
-function createNewCard(cardName, cardLink) {
+/* function createNewCard(cardName, cardLink) {
     const newCard = new Card(cardName, cardLink, tempElementSelector).createCard();
     return newCard
-}
+} */
     const cardContainer = '.elements';
 const newSection = new Section({data:initialCards,renderer: (item)=>{
    const card =  new Card(item.name, item.link, tempElementSelector).createCard();
@@ -88,15 +91,15 @@ const newSection = new Section({data:initialCards,renderer: (item)=>{
 cardContainer);
 newSection.createSection();
 
-function addCard(cardName, cardLink) {
+/* function addCard(cardName, cardLink) {
     const createdCard = createNewCard(cardName, cardLink)
     elements.prepend(createdCard);
-};
+}; */
 editPopupOpenButtonElement.addEventListener('click', openEditProfileForm);
 formEditProfile.addEventListener('submit', submitEditProfileForm);
 addPopupOpenButtonElement.addEventListener('click', openAddCardForm)
 formAddCard.addEventListener('submit', submitAddCardForm);
-popups.forEach((popup) => {
+/* popups.forEach((popup) => {
     popup.addEventListener('mousedown', (evt) => {
         if (evt.target.classList.contains('popup_is-opened')) {
             closePopup(popup)
@@ -105,7 +108,7 @@ popups.forEach((popup) => {
           closePopup(popup)
         }
     })
-})
+}) */
 
 export { openPopup, photoPopupElement, photoPopupElementImg, photoPopupElementName };
 
