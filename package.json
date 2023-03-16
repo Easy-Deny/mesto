@@ -4,7 +4,8 @@
   "description": "Страница отображает информацию о профиле и фотобиблиотеке пользователя.",
   "main": "index.js",
   "scripts": {
-    "build": "webpack"
+    "build": "webpack --mode production",
+    "dev": "webpack serve"
   },
   "author": "Denis Knorre",
   "license": "ISC",
@@ -16,8 +17,22 @@
     "url": "https://github.com/Easy-Deny/mesto/issues"
   },
   "homepage": "https://github.com/Easy-Deny/mesto#readme",
+  "dependencies": {
+    "core-js": "^3.29.1"
+  },
   "devDependencies": {
+    "@babel/core": "^7.21.3",
+    "@babel/preset-env": "^7.20.2",
+    "autoprefixer": "^10.4.14",
+    "babel-loader": "^9.1.2",
+    "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "^6.7.3",
+    "cssnano": "^5.1.15",
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.7.4",
+    "postcss-loader": "^7.1.0",
     "webpack": "^5.76.2",
-    "webpack-cli": "^5.0.1"
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.12.0"
   }
 }
