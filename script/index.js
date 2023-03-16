@@ -2,6 +2,7 @@ import { Card } from './Components/Card.js';
 import { FormValidator } from './Components/FormValidator.js';
 import { initialCards } from './Utils/constants.js';
 import Section from './Components/Section.js';
+import { PopupWithForm } from './Components/PopupWithForm.js';
 
 
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
@@ -34,7 +35,8 @@ const validationConfig = {
 };
 const escKeyCode = 27;
 const editFormValidation = new FormValidator(validationConfig, formEditProfile);
-const addFormValidation = new FormValidator(validationConfig, formAddCard);
+export const addFormValidation = new FormValidator(validationConfig, formAddCard);
+const addCardPopupSelector = 'popup_type_add-card';
 editFormValidation.enableValidation();
 addFormValidation.enableValidation();
 
@@ -46,15 +48,23 @@ const openEditProfileForm = function () {
     
 }
 const openAddCardForm = function () {
-    openPopup(popupAddCard);
-    addPopupFormElement.reset();
-    addFormValidation.resetValidation();
+const addCardPopup = new PopupWithForm(addCardPopupSelector, {submit: (name, link)=>{
+    evt.preventDefault();
+    const card =  new Card(name, link, tempElementSelector).createCard();
+    newSection.addItem(card);
+    addCardPopup.closePopup();
+} })
+addCardPopup.openPopup();
+addCardPopup.setEventListeners();
+    //openPopup(popupAddCard);
+    //addPopupFormElement.reset();
+    //addFormValidation.resetValidation();
     
 }
-const openPopup = function (popup) {
+ /* const openPopup = function (popup) {
     popup.classList.add('popup_is-opened');
     document.addEventListener('keydown', closePopupByEscButton);
-}
+}  */
 const closePopup = function (popup) {
     popup.classList.remove('popup_is-opened');
     document.removeEventListener('keydown', closePopupByEscButton);
@@ -65,19 +75,19 @@ const submitEditProfileForm = function (evt) {
     profileDescription.textContent = editPopupDescription.value;
     closePopup(popupEditProfile);
 }
-const submitAddCardForm = function (evt) {
+/* const submitAddCardForm = function (evt) {
     evt.preventDefault();
     addCard(addPopupName.value, addPopupLink.value);
     closePopup(popupAddCard);
-}
-const closePopupByEscButton = function (evt) {
+} */
+/* const closePopupByEscButton = function (evt) {
     if (evt.keyCode === escKeyCode) {
         const openedPopup = document.querySelector('.popup_is-opened');
         if (openedPopup !== null) {
             closePopup(openedPopup);
         }
     }
-}
+} */
 //initialCards.forEach(item => addCard(item.name, item.link));
 /* function createNewCard(cardName, cardLink) {
     const newCard = new Card(cardName, cardLink, tempElementSelector).createCard();
@@ -98,7 +108,7 @@ newSection.createSection();
 editPopupOpenButtonElement.addEventListener('click', openEditProfileForm);
 formEditProfile.addEventListener('submit', submitEditProfileForm);
 addPopupOpenButtonElement.addEventListener('click', openAddCardForm)
-formAddCard.addEventListener('submit', submitAddCardForm);
+//formAddCard.addEventListener('submit', submitAddCardForm);
 /* popups.forEach((popup) => {
     popup.addEventListener('mousedown', (evt) => {
         if (evt.target.classList.contains('popup_is-opened')) {
@@ -110,6 +120,6 @@ formAddCard.addEventListener('submit', submitAddCardForm);
     })
 }) */
 
-export { openPopup, photoPopupElement, photoPopupElementImg, photoPopupElementName };
+export { /* openPopup, photoPopupElement, */ photoPopupElementImg, photoPopupElementName };
 
 

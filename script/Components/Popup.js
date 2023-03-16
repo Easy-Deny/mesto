@@ -1,4 +1,5 @@
 import { escKeyCode,openedPopupSelector } from "../Utils/constants.js";
+import { addFormValidation } from "../index.js";
 
 export class Popup {
     constructor(popupSelector){
@@ -8,6 +9,9 @@ export class Popup {
     openPopup() {
         this._popup.classList.add(openedPopupSelector);
         document.addEventListener('keydown', this._handleEscClose);
+        //document.forms.forEach((form) => {form.reset()});
+        addFormValidation.resetValidation();
+
     }
     closePopup() {
         // console.log('CLOSE');
@@ -26,7 +30,7 @@ export class Popup {
     }
     setEventListeners() {
         this._popup.addEventListener('mousedown', (evt) => {
-            if (evt.target.classList.contains(`.${openedPopupSelector}`)) {
+            if (evt.target.classList.contains(openedPopupSelector)) {
                 this.closePopup()
             }
             if (evt.target.classList.contains('popup__close-button')) {

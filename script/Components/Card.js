@@ -1,4 +1,4 @@
-import { openPopup, photoPopupElement,photoPopupElementImg, photoPopupElementName } from "../index.js";
+import { /* openPopup, photoPopupElement */photoPopupElementImg, photoPopupElementName } from "../index.js";
 import { PopupWithImage } from "./PopupWithImage.js";
 import { photoPopupSelector } from "../Utils/constants.js";
 
