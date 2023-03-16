@@ -7,7 +7,7 @@ export class PopupWithForm extends Popup{
         this._handleEscClose = this._handleEscClose.bind(this);
         this.setEventListeners = this.setEventListeners.bind(this);
         this._popupSelector  = popupSelector;
-        this._submitForm= submitForm.bind;
+        this._submitForm= submitForm;
         this.openPopup = this.openPopup.bind(this);
         this._popup = document.querySelector(`.${popupSelector}`);
         this._addCardForm = this._popup.querySelector('.popup__content');
@@ -15,7 +15,7 @@ export class PopupWithForm extends Popup{
 
     }
 
-    
+
     _getInputValues(){
         //this._addPopupFormName = this._popup.querySelector('.popup__text_type_name');
         //this._addPopupFormDescription = this._popup.querySelector('.popup__text_type_description');
@@ -23,7 +23,11 @@ export class PopupWithForm extends Popup{
         //this.description = this._addPopupFormDescription.value;
         this.name = this._popup.querySelector('.popup__text_type_name').value;
         this.description = this._popup.querySelector('.popup__text_type_description').value;
-        return (this.name, this.description);
+        this.item = {
+            name: this._popup.querySelector('.popup__text_type_name').value,
+            description: this._popup.querySelector('.popup__text_type_description').value
+        }  
+        return this.item;
     }
     setEventListeners(){
         this._popup.addEventListener('mousedown', (evt) => {
@@ -37,7 +41,12 @@ export class PopupWithForm extends Popup{
 
     //console.log(this._getInputValues());
     //console.log(this._addCardForm);
-    this._addCardForm.addEventListener('submit', ()=>{this._submitForm(this._getInputValues())});
+    this._addCardForm.addEventListener('submit', (evt)=>{
+        evt.preventDefault();
+        //this.func=this._getInputValues();
+        //console.log(this.func);
+       this._submitForm(this._getInputValues());
+    });
 }
 
 

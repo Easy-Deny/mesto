@@ -48,12 +48,12 @@ const openEditProfileForm = function () {
     
 }
 const openAddCardForm = function () {
-const addCardPopup = new PopupWithForm(addCardPopupSelector, {submit: (name, link)=>{
-    evt.preventDefault();
-    const card =  new Card(name, link, tempElementSelector).createCard();
+const addCardPopup = new PopupWithForm(addCardPopupSelector, (item)=>{
+    //evt.preventDefault();
+    const card =  new Card(item.name, item.description, tempElementSelector).createCard();
     newSection.addItem(card);
     addCardPopup.closePopup();
-} })
+} )
 addCardPopup.openPopup();
 addCardPopup.setEventListeners();
     //openPopup(popupAddCard);
