@@ -4,8 +4,20 @@
   "description": "Страница отображает информацию о профиле и фотобиблиотеке пользователя.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack"
   },
   "author": "Denis Knorre",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Easy-Deny/mesto.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Easy-Deny/mesto/issues"
+  },
+  "homepage": "https://github.com/Easy-Deny/mesto#readme",
+  "devDependencies": {
+    "webpack": "^5.76.2",
+    "webpack-cli": "^5.0.1"
+  }
 }
