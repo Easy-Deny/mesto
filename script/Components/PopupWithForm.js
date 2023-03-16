@@ -21,8 +21,8 @@ export class PopupWithForm extends Popup{
         //this._addPopupFormDescription = this._popup.querySelector('.popup__text_type_description');
         //this.name = this._addPopupFormName.value;
         //this.description = this._addPopupFormDescription.value;
-        this.name = this._popup.querySelector('.popup__text_type_name').value;
-        this.description = this._popup.querySelector('.popup__text_type_description').value;
+       // this.name = this._popup.querySelector('.popup__text_type_name').value;
+       // this.description = this._popup.querySelector('.popup__text_type_description').value;
         this.item = {
             name: this._popup.querySelector('.popup__text_type_name').value,
             description: this._popup.querySelector('.popup__text_type_description').value
@@ -48,6 +48,9 @@ export class PopupWithForm extends Popup{
        this._submitForm(this._getInputValues());
     });
 }
-
-
+closePopup() {
+    this._popup.classList.remove(openedPopupSelector);
+    document.removeEventListener('keydown', this._handleEscClose);
+    this._addCardForm.reset();
+}
 }
