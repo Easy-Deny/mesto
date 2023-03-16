@@ -7,11 +7,11 @@ export class PopupWithImage extends Popup{
         this.image = data.src;
         this.alt = data.alt;
         this.popupSelector  = popupSelector;
-        
+        this._handleEscClose = this._handleEscClose.bind(this)
     }
 
     openPopup() {
-        console.log(this);
+        //console.log(this);
        //console.log(this.popupSelector);
         this._popup = document.querySelector(`.${this.popupSelector}`);
        // console.log(this._popup);
@@ -21,8 +21,7 @@ export class PopupWithImage extends Popup{
         this._popupImg.src = this.image;
         this._popupImg.alt = this.alt;
         this._popupText.textContent = this.alt;
-
         this._popup.classList.add(openedPopupSelector);
-        document.addEventListener('keydown', super._handleEscClose);
+        document.addEventListener('keydown', this._handleEscClose);
     }
 }

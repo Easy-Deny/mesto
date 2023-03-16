@@ -3,13 +3,14 @@ import { escKeyCode,openedPopupSelector } from "../Utils/constants.js";
 export class Popup {
     constructor(popupSelector){
         this._popup = document.querySelector(`.${popupSelector}`);
+        //this.__handleEscClose = this.__handleEscClose.bind(this)
     }
     openPopup() {
         this._popup.classList.add(openedPopupSelector);
         document.addEventListener('keydown', this._handleEscClose);
     }
     closePopup() {
-         console.log('CLOSE');
+        // console.log('CLOSE');
         this._popup.classList.remove(openedPopupSelector);
         document.removeEventListener('keydown', this._handleEscClose);
 
@@ -18,7 +19,7 @@ export class Popup {
         if (evt.keyCode === escKeyCode) {
             this._openedPopup = document.querySelector(`.${openedPopupSelector}`);
             if (this._openedPopup !== null) {
-                console.log(this);
+                //console.log(this);
                 this.closePopup();
             }
         }
