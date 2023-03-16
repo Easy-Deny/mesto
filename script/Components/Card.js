@@ -1,4 +1,4 @@
-import { /* openPopup, photoPopupElement */photoPopupElementImg, photoPopupElementName } from "../index.js";
+import { photoPopupElementImg, photoPopupElementName } from "../index.js";
 import { PopupWithImage } from "./PopupWithImage.js";
 import { photoPopupSelector } from "../Utils/constants.js";
 
@@ -31,14 +31,8 @@ class Card {
     _deleteCard(evt) {
         evt.target.closest('.element').remove();
     }
-    _openPreviewPicture(evt) {
-        //console.log(photoPopupSelector);
+    _openPreviewPicture(evt) {  
        new PopupWithImage(evt.target,photoPopupSelector).openPopup();
-       
-   /*      photoPopupElementImg.src = evt.target.src;
-        photoPopupElementName.textContent = evt.target.alt;
-        photoPopupElementImg.alt = evt.target.alt;
-        openPopup(photoPopupElement); */
     }
     _setEventListeners() {
         this._addEventListeners('.element__like-button', this._addReaction);

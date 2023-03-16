@@ -1,6 +1,5 @@
 import { Popup } from "./Popup.js";
 import { openedPopupSelector } from "../Utils/constants.js";
-
 export class PopupWithForm extends Popup {
     constructor(popupSelector, submitForm, data) {
         super(popupSelector);
@@ -11,11 +10,8 @@ export class PopupWithForm extends Popup {
         this.openPopup = this.openPopup.bind(this);
         this._popup = document.querySelector(`.${popupSelector}`);
         this._addCardForm = this._popup.querySelector('.popup__content');
-        this._getInputValues = this._getInputValues.bind(this);
-
+        this._submit = this._submit.bind(this);
     }
-
-
     _getInputValues() {
         this.item = {
             name: this._popup.querySelector('.popup__text_type_name').value,
@@ -41,7 +37,6 @@ export class PopupWithForm extends Popup {
         this._addCardForm.reset();
     }
     _submit(evt) {
-        console.log('push');
         evt.preventDefault();
         this._submitForm(this._getInputValues());
     }

@@ -9,16 +9,11 @@ export default class Section{
       this._container.innerHTML = '';
     }
     createSection() {
-      //this._clear();
         this._initialArray.forEach(item => {
           this._element = this._renderer(item);
-          //this._container.prepend(this._element);
-          //console.log(this._element);
           });
       }
     addItem(element) {
-      //console.log(element);
-      //console.log(this._container);
         this._container.prepend(element);
     };
 }
