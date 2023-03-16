@@ -14,6 +14,8 @@ export class PopupWithForm extends Popup{
         
 
     }
+
+    
     _getInputValues(){
         //this._addPopupFormName = this._popup.querySelector('.popup__text_type_name');
         //this._addPopupFormDescription = this._popup.querySelector('.popup__text_type_description');
