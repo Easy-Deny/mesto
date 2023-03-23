@@ -1,14 +1,9 @@
-import { photoPopupElementImg, photoPopupElementName } from "../index.js";
-import { PopupWithImage } from "./PopupWithImage.js";
-import { photoPopupSelector } from "../Utils/constants.js";
-
 class Card {
-    constructor(cardName, cardLink, tempElementSelector) {
+    constructor(cardName, cardLink, tempElementSelector, handleCardClick) {
         this._cardName = cardName;
         this._cardLink = cardLink;
         this._tempElementSelector = tempElementSelector;
-        this._photoPopupElementImg = photoPopupElementImg;
-        this._photoPopupElementName = photoPopupElementName;
+        this._handleCardClick = handleCardClick;
     }
     _createEmptyCard(element) {
         this._tempElement = document.querySelector(element).content;
@@ -31,13 +26,10 @@ class Card {
     _deleteCard(evt) {
         evt.target.closest('.element').remove();
     }
-    _openPreviewPicture(evt) {  
-       new PopupWithImage(evt.target,photoPopupSelector).openPopup();
-    }
     _setEventListeners() {
         this._addEventListeners('.element__like-button', this._addReaction);
         this._addEventListeners('.element__delete-button', this._deleteCard);
-        this._addEventListeners('.element__img', this._openPreviewPicture);
+        this._addEventListeners('.element__img', (evt) =>{this._handleCardClick(evt)});
     }
     createCard() {
         this._createEmptyCard(this._tempElementSelector);

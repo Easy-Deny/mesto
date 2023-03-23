@@ -5,7 +5,8 @@ import { initialCards } from './Utils/constants.js';
 import Section from './Components/Section.js';
 import { PopupWithForm } from './Components/PopupWithForm.js';
 import UserInfo from './Components/UserInfo.js';
-
+import { PopupWithImage } from './Components/PopupWithImage';
+import { photoPopupSelector } from "./Utils/constants.js";
 
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
 const formEditProfile = document.forms['form-profile'];
@@ -37,6 +38,12 @@ const userInfo = formEditProfile.querySelector('.popup__text_type_description');
 editFormValidation.enableValidation();
 addFormValidation.enableValidation();
 
+const imagePreview = new PopupWithImage(photoPopupSelector);
+function handleCardClick(evt){
+    const data  = evt.target;
+    imagePreview.openPopup(data);
+}
+
 const openEditProfileForm = function () {
     const editProfilePopup = new PopupWithForm(editProfilePopupSelector, (item)=>{
         const profileInfo =  new UserInfo(item.name, item.description).setUserInfo(); 
@@ -50,7 +57,7 @@ const openEditProfileForm = function () {
 }
 const openAddCardForm = function () {
 const addCardPopup = new PopupWithForm(addCardPopupSelector, (item)=>{
-    const card =  new Card(item.name, item.description, tempElementSelector).createCard();
+    const card =  new Card(item.name, item.description, tempElementSelector, handleCardClick).createCard();
     newSection.addItem(card);
     addCardPopup.closePopup();
 } )
@@ -59,7 +66,7 @@ addCardPopup.setEventListeners();
 }
     const cardContainer = '.elements';
 const newSection = new Section({data:initialCards,renderer: (item)=>{
-   const card =  new Card(item.name, item.link, tempElementSelector).createCard();
+   const card =  new Card(item.name, item.link, tempElementSelector, handleCardClick).createCard();
     newSection.addItem(card);
 }},
 cardContainer);
