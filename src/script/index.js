@@ -48,7 +48,7 @@ const openEditProfileForm = function () {
     const editProfilePopup = new PopupWithForm(editProfilePopupSelector, (item)=>{
         const profileInfo =  new UserInfo(item.name, item.description).setUserInfo(); 
         editProfilePopup.closePopup();
-        const a = profileInfo.getUserInfo();
+        //const a = profileInfo.getUserInfo();
     } )
     userName.value = profileName.textContent;
     userInfo.value = profileDescription.textContent;
