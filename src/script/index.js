@@ -49,6 +49,7 @@ const openEditProfileForm = function () {
         const profileInfo =  new UserInfo(item.name, item.description).setUserInfo(); 
         editProfilePopup.closePopup();
         //const a = profileInfo.getUserInfo();
+        
     } )
     userName.value = profileName.textContent;
     userInfo.value = profileDescription.textContent;
