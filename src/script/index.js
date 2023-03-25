@@ -6,7 +6,7 @@ import Section from './Components/Section.js';
 import { PopupWithForm } from './Components/PopupWithForm.js';
 import UserInfo from './Components/UserInfo.js';
 import { PopupWithImage } from './Components/PopupWithImage';
-import { photoPopupSelector, validationConfig,initialCards,tempElementSelector,addCardPopupSelector,editProfilePopupSelector,cardContainer,escKeyCode,openedPopupSelector } from "./Utils/constants.js";
+import { photoPopupSelector, validationConfig, initialCards, tempElementSelector, addCardPopupSelector, editProfilePopupSelector, cardContainer, escKeyCode, openedPopupSelector } from "./Utils/constants.js";
 
 //const popupEditProfile = document.querySelector('.popup_type_edit-profile');
 const formEditProfile = document.forms['form-profile'];
@@ -30,21 +30,23 @@ const userDescription = formEditProfile.querySelector('.popup__text_type_descrip
 editFormValidation.enableValidation();
 addFormValidation.enableValidation();
 
-const imagePreview = new PopupWithImage(photoPopupSelector,escKeyCode,openedPopupSelector);
-function handleCardClick(evt){
-    const data  = evt.target;
+const imagePreview = new PopupWithImage(photoPopupSelector, escKeyCode, openedPopupSelector);
+imagePreview.setEventListeners();
+function handleCardClick(evt) {
+    const data = evt.target;
     imagePreview.openPopup(data);
 }
-const profileInfo =  new UserInfo(profileName, profileDescription);
-const editProfilePopup = new PopupWithForm(editProfilePopupSelector,escKeyCode,openedPopupSelector,validationConfig, ()=>{
-    profileInfo.setUserInfo(userName.value,userDescription.value); 
+const profileInfo = new UserInfo(profileName, profileDescription);
+const editProfilePopup = new PopupWithForm(editProfilePopupSelector, escKeyCode, openedPopupSelector, validationConfig, () => {
+    profileInfo.setUserInfo(userName.value, userDescription.value);
     editProfilePopup.closePopup();
-} )
+})
 editProfilePopup.setEventListeners();
 const openEditProfileForm = function () {
     const userInfo = profileInfo.getUserInfo();
     userName.value = userInfo.name;
     userDescription.value = userInfo.description;
+    editFormValidation.resetValidation();
     editProfilePopup.openPopup();
 }
 function createCard(item) {
@@ -52,26 +54,29 @@ function createCard(item) {
     return cardElement
 }
 
-const addCardPopup = new PopupWithForm(addCardPopupSelector,escKeyCode,openedPopupSelector,validationConfig, (item)=>{
-   
+const addCardPopup = new PopupWithForm(addCardPopupSelector, escKeyCode, openedPopupSelector, validationConfig, (item) => {
+
     //const card =  new Card(item.name, item.description, tempElementSelector, handleCardClick).createCard();
     newSection.addItem(createCard(item));
     addCardPopup.closePopup();
-} )
+})
 addCardPopup.setEventListeners();
 const openAddCardForm = function () {
-addCardPopup.openPopup();
+    addFormValidation.resetValidation();
+    addCardPopup.openPopup();
 }
-   // const cardContainer = '.elements';
-const newSection = new Section({data:initialCards,renderer: (item)=>{
-   //const card =  new Card(item.name, item.link, tempElementSelector, handleCardClick).createCard();
-    newSection.addItem(createCard(item));
-}},
-cardContainer);
+// const cardContainer = '.elements';
+const newSection = new Section({
+    data: initialCards, renderer: (item) => {
+        //const card =  new Card(item.name, item.link, tempElementSelector, handleCardClick).createCard();
+        newSection.addItem(createCard(item));
+    }
+},
+    cardContainer);
 newSection.createSection();
 editPopupOpenButtonElement.addEventListener('click', openEditProfileForm);
 addPopupOpenButtonElement.addEventListener('click', openAddCardForm)
 
-export {photoPopupElementImg, photoPopupElementName };
+export { photoPopupElementImg, photoPopupElementName };
 
 
