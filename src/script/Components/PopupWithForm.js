@@ -1,7 +1,7 @@
 import { Popup } from "./Popup.js";
 import { openedPopupSelector } from "../Utils/constants.js";
 export class PopupWithForm extends Popup {
-    constructor(popupSelector, submitForm, data) {
+    constructor(popupSelector,validationConfig, submitForm, data) {
         super(popupSelector);
         this._handleEscClose = this._handleEscClose.bind(this);
         this.setEventListeners = this.setEventListeners.bind(this);
@@ -9,9 +9,10 @@ export class PopupWithForm extends Popup {
         this._submitForm = submitForm;
         this.openPopup = this.openPopup.bind(this);
         this._popup = document.querySelector(`.${popupSelector}`);
-        this._addCardForm = this._popup.querySelector('.popup__content');
+        this._validationConfig = validationConfig;
+        this._addCardForm = this._popup.querySelector(this._validationConfig.formSelector);
         this._submit = this._submit.bind(this);
-        this.submitButton = this._popup.querySelector('.popup__save-button');
+        this.submitButton = this._popup.querySelector(this._validationConfig.submitButtonSelector);
     }
     _getInputValues() {
         this.item = {
@@ -38,9 +39,9 @@ export class PopupWithForm extends Popup {
         this._addCardForm.reset();
     }
     _submit(evt) {
-        if (!this.submitButton.classList.contains('popup__save-button_inactive')) {
+        if (!this.submitButton.classList.contains(this._validationConfig.inactiveButtonClass)) {
         evt.preventDefault();
         this._submitForm(this._getInputValues());
-        this.submitButton.classList.add('popup__save-button_inactive');}
+        this.submitButton.classList.add(this._validationConfig.inactiveButtonClass);}
     }
 }

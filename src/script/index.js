@@ -43,7 +43,7 @@ function handleCardClick(evt){
     const data  = evt.target;
     imagePreview.openPopup(data);
 }
-const editProfilePopup = new PopupWithForm(editProfilePopupSelector, (item)=>{
+const editProfilePopup = new PopupWithForm(editProfilePopupSelector,validationConfig, (item)=>{
     const profileInfo =  new UserInfo(item.name, item.description).setUserInfo(); 
     editProfilePopup.closePopup();
     //const a = profileInfo.getUserInfo();
@@ -55,7 +55,7 @@ const openEditProfileForm = function () {
     editProfilePopup.openPopup();
     
 }
-const addCardPopup = new PopupWithForm(addCardPopupSelector, (item)=>{
+const addCardPopup = new PopupWithForm(addCardPopupSelector,validationConfig, (item)=>{
     const card =  new Card(item.name, item.description, tempElementSelector, handleCardClick).createCard();
     newSection.addItem(card);
     addCardPopup.closePopup();
