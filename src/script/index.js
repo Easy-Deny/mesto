@@ -1,17 +1,17 @@
 import '../pages/index.css';
 import { Card } from './Components/Card.js';
 import { FormValidator } from './Components/FormValidator.js';
-import { initialCards } from './Utils/constants.js';
+//import { initialCards } from './Utils/constants.js';
 import Section from './Components/Section.js';
 import { PopupWithForm } from './Components/PopupWithForm.js';
 import UserInfo from './Components/UserInfo.js';
 import { PopupWithImage } from './Components/PopupWithImage';
-import { photoPopupSelector } from "./Utils/constants.js";
+import { photoPopupSelector, validationConfig,initialCards } from "./Utils/constants.js";
 
-const popupEditProfile = document.querySelector('.popup_type_edit-profile');
+//const popupEditProfile = document.querySelector('.popup_type_edit-profile');
 const formEditProfile = document.forms['form-profile'];
 const editPopupOpenButtonElement = document.querySelector('.profile__edit-button');
-const popupAddCard = document.querySelector('.popup_type_add-card');
+//const popupAddCard = document.querySelector('.popup_type_add-card');
 const addPopupOpenButtonElement = document.querySelector('.profile__add-button');
 const formAddCard = document.forms['form-content'];
 const photoPopupElement = document.querySelector('.popup-photo');
@@ -20,15 +20,7 @@ const photoPopupElementName = photoPopupElement.querySelector('.popup-photo__nam
 export const profileName = document.querySelector('.profile__name');
 export const profileDescription = document.querySelector('.profile__description');
 const tempElementSelector = '.temp-element';
-const validationConfig = {
-    formSelector: '.popup__content',
-    inputSelector: '.popup__text',
-    submitButtonSelector: '.popup__save-button',
-    inactiveButtonClass: 'popup__save-button_inactive',
-    inputErrorClass: 'popup__text_type_error',
-    errorClass: 'popup__text-error_active',
-    errorMessageClass: '.popup__text-error'
-};
+
 const editFormValidation = new FormValidator(validationConfig, formEditProfile);
 const addFormValidation = new FormValidator(validationConfig, formAddCard);
 const addCardPopupSelector = 'popup_type_add-card';

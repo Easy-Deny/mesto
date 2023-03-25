@@ -28,3 +28,12 @@ export const initialCards = [
 export const escKeyCode = 27;
 export const openedPopupSelector = 'popup_is-opened';
 export const photoPopupSelector= 'popup-photo' ;
+export const validationConfig = {
+    formSelector: '.popup__content',
+    inputSelector: '.popup__text',
+    submitButtonSelector: '.popup__save-button',
+    inactiveButtonClass: 'popup__save-button_inactive',
+    inputErrorClass: 'popup__text_type_error',
+    errorClass: 'popup__text-error_active',
+    errorMessageClass: '.popup__text-error'
+};
