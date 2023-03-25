@@ -6,7 +6,7 @@ import Section from './Components/Section.js';
 import { PopupWithForm } from './Components/PopupWithForm.js';
 import UserInfo from './Components/UserInfo.js';
 import { PopupWithImage } from './Components/PopupWithImage';
-import { photoPopupSelector, validationConfig,initialCards,tempElementSelector,addCardPopupSelector,editProfilePopupSelector,cardContainer } from "./Utils/constants.js";
+import { photoPopupSelector, validationConfig,initialCards,tempElementSelector,addCardPopupSelector,editProfilePopupSelector,cardContainer,escKeyCode,openedPopupSelector } from "./Utils/constants.js";
 
 //const popupEditProfile = document.querySelector('.popup_type_edit-profile');
 const formEditProfile = document.forms['form-profile'];

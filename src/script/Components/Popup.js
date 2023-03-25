@@ -1,7 +1,8 @@
-import { escKeyCode,openedPopupSelector } from "../Utils/constants.js";
+import { escKeyCode, openedPopupSelector } from "../Utils/constants.js";
 export class Popup {
-    constructor(popupSelector){
+    constructor(popupSelector) {
         this._popup = document.querySelector(`.${popupSelector}`);
+        this._handleEscClose = this._handleEscClose.bind(this)
     }
     openPopup() {
         this._popup.classList.add(openedPopupSelector);
@@ -14,10 +15,7 @@ export class Popup {
     }
     _handleEscClose(evt) {
         if (evt.keyCode === escKeyCode) {
-            this._openedPopup = document.querySelector(`.${openedPopupSelector}`);
-            if (this._openedPopup !== null) {
-                this.closePopup();
-            }
+            this.closePopup();
         }
     }
     setEventListeners() {
