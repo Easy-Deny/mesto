@@ -43,27 +43,27 @@ function handleCardClick(evt){
     const data  = evt.target;
     imagePreview.openPopup(data);
 }
-
+const editProfilePopup = new PopupWithForm(editProfilePopupSelector, (item)=>{
+    const profileInfo =  new UserInfo(item.name, item.description).setUserInfo(); 
+    editProfilePopup.closePopup();
+    //const a = profileInfo.getUserInfo();
+} )
+editProfilePopup.setEventListeners();
 const openEditProfileForm = function () {
-    const editProfilePopup = new PopupWithForm(editProfilePopupSelector, (item)=>{
-        const profileInfo =  new UserInfo(item.name, item.description).setUserInfo(); 
-        editProfilePopup.closePopup();
-        //const a = profileInfo.getUserInfo();
-        
-    } )
     userName.value = profileName.textContent;
     userInfo.value = profileDescription.textContent;
     editProfilePopup.openPopup();
-    editProfilePopup.setEventListeners();
+    
 }
-const openAddCardForm = function () {
 const addCardPopup = new PopupWithForm(addCardPopupSelector, (item)=>{
     const card =  new Card(item.name, item.description, tempElementSelector, handleCardClick).createCard();
     newSection.addItem(card);
     addCardPopup.closePopup();
 } )
-addCardPopup.openPopup();
 addCardPopup.setEventListeners();
+const openAddCardForm = function () {
+addCardPopup.openPopup();
+
 }
     const cardContainer = '.elements';
 const newSection = new Section({data:initialCards,renderer: (item)=>{

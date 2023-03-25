@@ -11,6 +11,7 @@ export class PopupWithForm extends Popup {
         this._popup = document.querySelector(`.${popupSelector}`);
         this._addCardForm = this._popup.querySelector('.popup__content');
         this._submit = this._submit.bind(this);
+        this.submitButton = this._popup.querySelector('.popup__save-button');
     }
     _getInputValues() {
         this.item = {
@@ -33,11 +34,13 @@ export class PopupWithForm extends Popup {
     closePopup() {
         this._popup.classList.remove(openedPopupSelector);
         document.removeEventListener('keydown', this._handleEscClose);
-        this._addCardForm.removeEventListener('submit', this._submit);
+        //this._addCardForm.removeEventListener('submit', this._submit);
         this._addCardForm.reset();
     }
     _submit(evt) {
+        if (!this.submitButton.classList.contains('popup__save-button_inactive')) {
         evt.preventDefault();
         this._submitForm(this._getInputValues());
+        this.submitButton.classList.add('popup__save-button_inactive');}
     }
 }
