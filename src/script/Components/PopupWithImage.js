@@ -1,9 +1,9 @@
 import {Popup} from "./Popup.js";
-import { openedPopupSelector } from "../Utils/constants.js";
-
 export class PopupWithImage extends Popup{
-    constructor(popupSelector){
-        super(popupSelector);
+    constructor(popupSelector,escKeyCode,openedPopupSelector){
+        super(popupSelector,escKeyCode,openedPopupSelector);
+        //super(escKeyCode);
+        this._openedPopupSelector = openedPopupSelector;
         this.popupSelector  = popupSelector;
         this._handleEscClose = this._handleEscClose.bind(this);
         this.setEventListeners = this.setEventListeners.bind(this);
@@ -15,7 +15,7 @@ export class PopupWithImage extends Popup{
         this._popupImg.src = data.src;
         this._popupImg.alt = data.alt;
         this._popupText.textContent = data.alt;
-        this._popup.classList.add(openedPopupSelector);
+        this._popup.classList.add(this._openedPopupSelector);
         document.addEventListener('keydown', this._handleEscClose);
         this.setEventListeners();
     }

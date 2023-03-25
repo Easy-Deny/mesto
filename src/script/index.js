@@ -30,13 +30,13 @@ const userDescription = formEditProfile.querySelector('.popup__text_type_descrip
 editFormValidation.enableValidation();
 addFormValidation.enableValidation();
 
-const imagePreview = new PopupWithImage(photoPopupSelector);
+const imagePreview = new PopupWithImage(photoPopupSelector,escKeyCode,openedPopupSelector);
 function handleCardClick(evt){
     const data  = evt.target;
     imagePreview.openPopup(data);
 }
 const profileInfo =  new UserInfo(profileName, profileDescription);
-const editProfilePopup = new PopupWithForm(editProfilePopupSelector,validationConfig, ()=>{
+const editProfilePopup = new PopupWithForm(editProfilePopupSelector,escKeyCode,openedPopupSelector,validationConfig, ()=>{
     profileInfo.setUserInfo(userName.value,userDescription.value); 
     editProfilePopup.closePopup();
 } )
@@ -52,7 +52,7 @@ function createCard(item) {
     return cardElement
 }
 
-const addCardPopup = new PopupWithForm(addCardPopupSelector,validationConfig, (item)=>{
+const addCardPopup = new PopupWithForm(addCardPopupSelector,escKeyCode,openedPopupSelector,validationConfig, (item)=>{
    
     //const card =  new Card(item.name, item.description, tempElementSelector, handleCardClick).createCard();
     newSection.addItem(createCard(item));

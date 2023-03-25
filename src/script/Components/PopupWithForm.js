@@ -1,8 +1,8 @@
 import { Popup } from "./Popup.js";
-import { openedPopupSelector } from "../Utils/constants.js";
 export class PopupWithForm extends Popup {
-    constructor(popupSelector,validationConfig, submitForm, data) {
-        super(popupSelector);
+    constructor(popupSelector,escKeyCode,openedPopupSelector,validationConfig, submitForm) {
+        super(popupSelector,escKeyCode,openedPopupSelector);
+        this._openedPopupSelector = openedPopupSelector;
         this._handleEscClose = this._handleEscClose.bind(this);
         this.setEventListeners = this.setEventListeners.bind(this);
         this._popupSelector = popupSelector;
@@ -23,7 +23,7 @@ export class PopupWithForm extends Popup {
     }
     setEventListeners() {
         this._popup.addEventListener('mousedown', (evt) => {
-            if (evt.target.classList.contains(openedPopupSelector)) {
+            if (evt.target.classList.contains(this._openedPopupSelector)) {
                 this.closePopup()
             }
             if (evt.target.classList.contains('popup__close-button')) {
@@ -33,7 +33,7 @@ export class PopupWithForm extends Popup {
         this._addCardForm.addEventListener('submit', this._submit)
     }
     closePopup() {
-        this._popup.classList.remove(openedPopupSelector);
+        this._popup.classList.remove(this._openedPopupSelector);
         document.removeEventListener('keydown', this._handleEscClose);
         //this._addCardForm.removeEventListener('submit', this._submit);
         this._addCardForm.reset();
