@@ -13,6 +13,7 @@ export class PopupWithForm extends Popup {
         this._submit = this._submit.bind(this);
         this.submitButton = this._popup.querySelector(this._validationConfig.submitButtonSelector);
     }
+    
     _getInputValues() {
         this._item={};
         this._inputList = this._popup.querySelectorAll('.popup__text');
