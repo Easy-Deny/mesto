@@ -37,3 +37,6 @@ export const validationConfig = {
     errorClass: 'popup__text-error_active',
     errorMessageClass: '.popup__text-error'
 };
+export const tempElementSelector = '.temp-element';
+export const addCardPopupSelector = 'popup_type_add-card';
+export const editProfilePopupSelector = 'popup_type_edit-profile';

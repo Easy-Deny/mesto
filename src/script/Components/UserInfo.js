@@ -1,19 +1,16 @@
-import { profileName, profileDescription } from "../index.js";
 export default class UserInfo {
     constructor(name, description) {
-        this.user = {
-            name: name,
-            description: description
-        }
+        this._name = name;
+        this._description = description;
     }
     getUserInfo() {
-        return user ={
-            name:profileName.textContent,
-            description: profileDescription.textContent
+        return this.userInfo ={
+            name:    this._name.textContent,
+            description:  this._description.textContent
         }
     }
-    setUserInfo() {
-        profileName.textContent = this.user.name;
-        profileDescription.textContent = this.user.description;
+    setUserInfo(name,description) {
+        this._name.textContent = name;
+        this._description.textContent = description;
     }
 }
