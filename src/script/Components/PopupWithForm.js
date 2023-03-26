@@ -12,11 +12,11 @@ export class PopupWithForm extends Popup {
         this._addCardForm = this._popup.querySelector(this._validationConfig.formSelector);
         this._submit = this._submit.bind(this);
         this.submitButton = this._popup.querySelector(this._validationConfig.submitButtonSelector);
+        this._inputList = this._popup.querySelectorAll('.popup__text');
     }
     
     _getInputValues() {
         this._item={};
-        this._inputList = this._popup.querySelectorAll('.popup__text');
         this._inputList.forEach((input) => {
         this._item[((input.name).slice(5)).toLowerCase()]= input.value
         })
@@ -35,6 +35,7 @@ super.setEventListeners();
         if (!this.submitButton.classList.contains(this._validationConfig.inactiveButtonClass)) {
         evt.preventDefault();
         this._submitForm(this._getInputValues());
-        this.submitButton.classList.add(this._validationConfig.inactiveButtonClass);}
+       // this.submitButton.classList.add(this._validationConfig.inactiveButtonClass);
+    }
     }
 }
