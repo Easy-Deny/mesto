@@ -59,4 +59,30 @@ export class Api {
                 return Promise.reject('произошла ошибка');
             })
     }
+
+    addLike(id) {
+        return fetch(`${this.url}/${id}/likes`, {
+            method: 'PUT',
+            headers: this.headers
+        })
+            .then((res) => {
+                if (res.ok) {
+                    return res.json()
+                };
+                return Promise.reject('произошла ошибка постановки лайка');
+            })
+    }
+
+    deleteLike(id) {
+        return fetch(`${this.url}/${id}/likes`, {
+            method: 'DELETE',
+            headers: this.headers
+        })
+            .then((res) => {
+                if (res.ok) {
+                    return res.json()
+                };
+                return Promise.reject('произошла ошибка снятия лайка');
+            })
+    }
 }

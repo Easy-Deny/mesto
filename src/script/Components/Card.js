@@ -10,7 +10,10 @@ class Card {
         this._cardId = cardId;
         this._likes = likes;
         this._deleteCard = this._deleteCard.bind(this);
+        this._addReaction = this._addReaction.bind(this);
+        //this._isLiked = this._isLiked.bind(this);
         this.createCard = this.createCard.bind(this);
+
     }
     _createEmptyCard(element) {
         this._tempElement = document.querySelector(element).content;
@@ -18,35 +21,77 @@ class Card {
     }
     _fillEmptyCard(createdCard) {
         this._createdCardImg = createdCard.querySelector('.element__img');
+        this._likeCounter = createdCard.querySelector('.element__like-counter');
+        this._likeButton = createdCard.querySelector('.element__like-button');
         createdCard.querySelector('.element__name').textContent = this._cardName;
         this._createdCardImg.src = this._cardLink;
         this._createdCardImg.alt = this._cardName;
-        createdCard.querySelector('.element__like-counter').textContent = this._likes.length;
+        this._likeCounter.textContent = this._likes.length;
         //console.log(this._cardId);
         //console.log(this._currentUserId);
-        if ((this._currentUserId != this._ownerId)&&(this._cardId !=undefined)) {
+        if ((this._currentUserId != this._ownerId) && (this._cardId != undefined)) {
             // console.log('true');
             createdCard.querySelector('.element__delete-button').style.visibility = 'hidden';
         }
+        /*   this._likes.forEach(element => {
+              if (element._id === this._currentUserId){
+              //console.log(element);
+              this._likeButton.classList.toggle('element__like-button_is-liked')
+              } 
+          }); */
+
+        if (this._isLiked()) {
+            this._likeButton.classList.toggle('element__like-button_is-liked')
+        }
+        return this._likeCounter
+    }
+    _isLiked() {
+        this._liked = this._likes.some(element => {
+            return (element._id === this._currentUserId)
+        })
+        return this._liked
     }
     _addEventListeners(element, func) {
         this._createdCard.querySelector(element).addEventListener('click', (evt) => {
             func(evt);
         });
     }
-    _addReaction(evt) {
+    _toggleLikeButton(evt) {
         evt.target.classList.toggle('element__like-button_is-liked')
     }
+    _addReaction(evt) {
+        if (!this._isLiked()) {
+            this._api.addLike(this._cardId)
+                .then((data) => {
+                    //console.log(data.likes.length)
+                    this._likeCounter.textContent = data.likes.length;
+                }
+                )
+                .then(() => {
+                    this._toggleLikeButton(evt);
+                })
+                .catch((err) => console.log('не удалось послевить лайк'));
+        } else {
+            this._api.deleteLike(this._cardId)
+                .then((data) => {
+                    //console.log(data.likes.length)
+                    this._likeCounter.textContent = data.likes.length;
+                }
+                )
+                .then(() => {
+                    this._toggleLikeButton(evt);
+                })
+                .catch((err) => console.log('не удалось снять лайк'));
+        }
+    }
     _deleteCard(evt) {
-        //console.log(this._cardId);
         this._api.deleteElement(this._cardId)
-        .then(()=>{evt.target.closest('.element').remove()})
-        .catch((err)=> console.log('не удалось удалить карточку'));
-     
+            .then(() => { evt.target.closest('.element').remove() })
+            .catch((err) => console.log('не удалось удалить карточку'));
     }
     _setEventListeners() {
         this._addEventListeners('.element__like-button', this._addReaction);
-        this._addEventListeners('.element__delete-button',this._deleteCard);
+        this._addEventListeners('.element__delete-button', this._deleteCard);
         this._addEventListeners('.element__img', (evt) => { this._handleCardClick(evt) });
     }
     createCard() {
@@ -55,7 +100,7 @@ class Card {
         this._setEventListeners();
         //console.log(this._cardId);
         return this._createdCard;
-        
+
     }
     saveCard() {
         this._api.addElement({
@@ -64,10 +109,10 @@ class Card {
         })
             //.then((data)=>{return 'test 8)'})
             //newSection.addItem(newCard.saveCard());
-            .then((data)=>{return this.createCard()})
-            .catch((err)=>{console.log(`Ошибка загрузки карты на сервер${err}`)})
-            
-            
+            .then((data) => { return this.createCard() })
+            .catch((err) => { console.log(`Ошибка загрузки карты на сервер${err}`) })
+
+
     }
 }
 export { Card };

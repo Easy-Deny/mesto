@@ -37,6 +37,7 @@ const cardApi = new Api({
         authorization: '8fe21241-d4e3-40e9-bdfb-586c0b845bc2'
     }
 })
+
 function refreshUserInfo() {
     const userProfile = userApi.getAllElements();
     userProfile.then((data) => {
