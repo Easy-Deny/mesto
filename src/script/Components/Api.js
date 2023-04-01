@@ -28,11 +28,28 @@ export class Api {
                 return Promise.reject('произошла ошибка');
             })
     }
-    
+
     deleteElement(id) {
         return fetch(`${this.url}/${id}`, {
             method: 'DELETE',
             headers: this.headers
+        })
+            .then((res) => {
+                if (res.ok) {
+                    //console.log(data);
+                    return res.json()
+                };
+                return Promise.reject('произошла ошибка');
+            })
+    }
+    editProfile(data) {
+        return fetch(this.url, {
+            method: 'PATCH',
+            headers: this.headers,
+            body: JSON.stringify({
+                name: data.name,
+                about: data.description
+            })
         })
             .then((res) => {
                 if (res.ok) {

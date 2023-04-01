@@ -1,5 +1,5 @@
 class Card {
-    constructor(cardName, cardLink, ownerId, cardId, tempElementSelector, handleCardClick, currentUserId, api) {
+    constructor(cardName, cardLink, ownerId, cardId, likes, tempElementSelector, handleCardClick, currentUserId, api) {
         this._cardName = cardName;
         this._cardLink = cardLink;
         this._ownerId = ownerId;
@@ -8,8 +8,9 @@ class Card {
         this._handleCardClick = handleCardClick;
         this._api = api;
         this._cardId = cardId;
-        //this._cardId = this._cardId.bind
-        this.createCard = this.createCard.bind(this)
+        this._likes = likes;
+        this._deleteCard = this._deleteCard.bind(this);
+        this.createCard = this.createCard.bind(this);
     }
     _createEmptyCard(element) {
         this._tempElement = document.querySelector(element).content;
@@ -20,9 +21,10 @@ class Card {
         createdCard.querySelector('.element__name').textContent = this._cardName;
         this._createdCardImg.src = this._cardLink;
         this._createdCardImg.alt = this._cardName;
+        createdCard.querySelector('.element__like-counter').textContent = this._likes.length;
         //console.log(this._cardId);
         //console.log(this._currentUserId);
-        if (this._currentUserId != this._ownerId) {
+        if ((this._currentUserId != this._ownerId)&&(this._cardId !=undefined)) {
             // console.log('true');
             createdCard.querySelector('.element__delete-button').style.visibility = 'hidden';
         }
@@ -36,9 +38,11 @@ class Card {
         evt.target.classList.toggle('element__like-button_is-liked')
     }
     _deleteCard(evt) {
-        console.log(this._cardId);
-     //this._api.deleteElement(this._id);
-        evt.target.closest('.element').remove();
+        //console.log(this._cardId);
+        this._api.deleteElement(this._cardId)
+        .then(()=>{evt.target.closest('.element').remove()})
+        .catch((err)=> console.log('не удалось удалить карточку'));
+     
     }
     _setEventListeners() {
         this._addEventListeners('.element__like-button', this._addReaction);
@@ -49,7 +53,7 @@ class Card {
         this._createEmptyCard(this._tempElementSelector);
         this._fillEmptyCard(this._createdCard);
         this._setEventListeners();
-        console.log(this._cardId);
+        //console.log(this._cardId);
         return this._createdCard;
         
     }

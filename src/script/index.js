@@ -38,16 +38,15 @@ const cardApi = new Api({
     }
 })
 function refreshUserInfo() {
-    const user = userApi.getAllElements();
-    user.then((data) => {
+    const userProfile = userApi.getAllElements();
+    userProfile.then((data) => {
         currentUser = data;
         console.log(currentUser)
         profileName.textContent = currentUser.name;
         profileDescription.textContent = currentUser.about;
         profileAvatar.textContent = currentUser.avatar;
     });
-    user.then(refreshCards());
-
+    userProfile.then(refreshCards());
 }
 function refreshCards(){
     const cards = cardApi.getAllElements();
@@ -71,7 +70,11 @@ function handleCardClick(evt) {
 }
 const profileInfo = new UserInfo(profileName, profileDescription);
 const editProfilePopup = new PopupWithForm(editProfilePopupSelector, escKeyCode, openedPopupSelector, validationConfig, (user) => {
-    profileInfo.setUserInfo(user.name, user.description);
+    userApi.editProfile(user)
+    .then(()=>{
+        profileInfo.setUserInfo(user.name, user.description);
+    })
+    
     editProfilePopup.closePopup();
     editFormValidation.resetValidation();
 })
@@ -85,7 +88,7 @@ const openEditProfileForm = function () {
 }
 function createCard(item) {
     //console.log(item.id);
-    const cardElement = new Card(item.name, item.description, item.ownerId, item.id, tempElementSelector, handleCardClick, currentUser._id, cardApi);
+    const cardElement = new Card(item.name, item.description, item.ownerId, item.id, item.likes, tempElementSelector, handleCardClick, currentUser._id, cardApi);
     return cardElement
 }
 
