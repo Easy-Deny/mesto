@@ -56,10 +56,11 @@ module.exports = {
         ],
     },
     plugins: [
+        new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             template: './src/index.html'
         }),
         new MiniCssExtractPlugin(),
-        new CleanWebpackPlugin(),
+        
     ],
 };
