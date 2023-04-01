@@ -38,7 +38,7 @@ const cardApi = new Api({
     }
 })
 function refreshUserInfo() {
-    const user = userApi.getAllCards();
+    const user = userApi.getAllElements();
     user.then((data) => {
         currentUser = data;
         console.log(currentUser)
@@ -50,10 +50,11 @@ function refreshUserInfo() {
 
 }
 function refreshCards(){
-    const cards = cardApi.getAllCards();
+    const cards = cardApi.getAllElements();
     cards.then((data) => {
+        console.log(data);
         data.map(item => {
-            initialCards.push({ name: item.name, description: item.link, ownerId: item.owner._id, likes: item.likes });
+            initialCards.push({ name: item.name, description: item.link, ownerId: item.owner._id, likes: item.likes, id: item._id });
         });
         newSection.createSection();
     });
@@ -83,12 +84,15 @@ const openEditProfileForm = function () {
     editProfilePopup.openPopup();
 }
 function createCard(item) {
-    const cardElement = new Card(item.name, item.description, tempElementSelector, handleCardClick).createCard();
+    //console.log(item.id);
+    const cardElement = new Card(item.name, item.description, item.ownerId, item.id, tempElementSelector, handleCardClick, currentUser._id, cardApi);
     return cardElement
 }
 
 const addCardPopup = new PopupWithForm(addCardPopupSelector, escKeyCode, openedPopupSelector, validationConfig, (item) => {
-    newSection.addItem(createCard(item));
+    const newCard = createCard(item);
+    newCard.saveCard();
+    newSection.addItem(newCard.createCard());
     addCardPopup.closePopup();
 })
 addCardPopup.setEventListeners();
@@ -98,7 +102,7 @@ const openAddCardForm = function () {
 }
 const newSection = new Section({
     data: initialCards, renderer: (item) => {
-        newSection.addItem(createCard(item));
+        newSection.addItem(createCard(item).createCard());
     }
 },
     cardContainer);

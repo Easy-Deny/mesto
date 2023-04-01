@@ -9,7 +9,8 @@ export default class Section{
       this._container.innerHTML = '';
     }
     createSection() {
-        this._initialArray.forEach(item => {
+        //this._initialArray.forEach(item => {
+            this._initialArray.reduceRight((_, item) =>{
           this._element = this._renderer(item);
           });
       }
