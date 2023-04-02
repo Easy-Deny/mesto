@@ -20,6 +20,9 @@ export class PopupWithForm extends Popup {
         this._inputList.forEach((input) => {
         this._item[((input.name).slice(5)).toLowerCase()]= input.value
         })
+        this._item.likes=[];
+    
+        
         return this._item;
     }
     setEventListeners() {

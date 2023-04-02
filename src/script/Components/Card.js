@@ -13,7 +13,6 @@ class Card {
         this._addReaction = this._addReaction.bind(this);
         //this._isLiked = this._isLiked.bind(this);
         this.createCard = this.createCard.bind(this);
-
     }
     _createEmptyCard(element) {
         this._tempElement = document.querySelector(element).content;

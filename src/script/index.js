@@ -7,7 +7,7 @@ import UserInfo from './Components/UserInfo.js';
 import { PopupWithImage } from './Components/PopupWithImage';
 import { photoPopupSelector, validationConfig, editAvatarPopupSelector, messagePopupSelector, tempElementSelector, addCardPopupSelector, editProfilePopupSelector, cardContainer, escKeyCode, openedPopupSelector } from "./Utils/constants.js";
 import { Api } from './Components/Api.js';
-import { PopupWithMessage } from './Components/PopupWithMessage';
+//import { PopupWithMessage } from './Components/PopupWithMessage';
 const formEditProfile = document.forms['form-profile'];
 const editPopupOpenButtonElement = document.querySelector('.profile__edit-button');
 const addPopupOpenButtonElement = document.querySelector('.profile__add-button');
@@ -74,7 +74,7 @@ function refreshCards() {
     })
     cards.then(() => { newSection.createSection() })
     //cards.then(()=>{newSection.сre})
-    console.log('start')
+    console.log(initialCards)
 
 }
 
@@ -100,7 +100,7 @@ const editProfilePopup = new PopupWithForm(editProfilePopupSelector, escKeyCode,
     editFormValidation.resetValidation();
 })
 
-const messagePopup = new PopupWithMessage(messagePopupSelector, escKeyCode, openedPopupSelector, button, (event) => { })
+//const messagePopup = new PopupWithMessage(messagePopupSelector, escKeyCode, openedPopupSelector, button, (event) => { })
 
 
 editProfilePopup.setEventListeners();
@@ -112,12 +112,13 @@ const openEditProfileForm = function () {
     editProfilePopup.openPopup();
 }
 function createCard(item) {
-    //console.log(item.id);
+    
     const cardElement = new Card(item.name, item.description, item.ownerId, item.id, item.likes, tempElementSelector, handleCardClick, currentUser._id, cardApi);
     return cardElement
 }
 
 const addCardPopup = new PopupWithForm(addCardPopupSelector, escKeyCode, openedPopupSelector, validationConfig, (item) => {
+console.log(item);
     const newCard = createCard(item);
     newCard.saveCard();
     newSection.addItem(newCard.createCard());
