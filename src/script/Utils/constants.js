@@ -40,4 +40,6 @@ export const validationConfig = {
 export const tempElementSelector = '.temp-element';
 export const addCardPopupSelector = 'popup_type_add-card';
 export const editProfilePopupSelector = 'popup_type_edit-profile';
+export const editAvatarPopupSelector = 'popup_type_avatar';
+export const messagePopupSelector = 'popup_type_message';
 export const cardContainer = '.elements';

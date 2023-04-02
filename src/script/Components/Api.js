@@ -85,4 +85,22 @@ export class Api {
                 return Promise.reject('произошла ошибка снятия лайка');
             })
     }
+
+    editAvatar(data){
+        //console.log(data);
+        return fetch(`${this.url}/avatar`, {
+            method: 'PATCH',
+            headers: this.headers,
+            body: JSON.stringify({
+                avatar: data
+        })
+        })
+            .then((res) => {
+                if (res.ok) {
+                    //console.log(data);
+                    return res.json()
+                };
+                return Promise.reject('произошла ошибка');
+            })
+    }
 }

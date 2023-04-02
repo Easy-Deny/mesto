@@ -63,25 +63,23 @@ class Card {
         if (!this._isLiked()) {
             this._api.addLike(this._cardId)
                 .then((data) => {
-                    //console.log(data.likes.length)
                     this._likeCounter.textContent = data.likes.length;
                 }
                 )
                 .then(() => {
                     this._toggleLikeButton(evt);
                 })
-                .catch((err) => console.log('не удалось послевить лайк'));
+                .catch((err) => console.log(`не удалось поставить лайк ${err}`));
         } else {
             this._api.deleteLike(this._cardId)
                 .then((data) => {
-                    //console.log(data.likes.length)
                     this._likeCounter.textContent = data.likes.length;
                 }
                 )
                 .then(() => {
                     this._toggleLikeButton(evt);
                 })
-                .catch((err) => console.log('не удалось снять лайк'));
+                .catch((err) => console.log(`не удалось снять лайк ${err}`));
         }
     }
     _deleteCard(evt) {
@@ -98,7 +96,6 @@ class Card {
         this._createEmptyCard(this._tempElementSelector);
         this._fillEmptyCard(this._createdCard);
         this._setEventListeners();
-        //console.log(this._cardId);
         return this._createdCard;
 
     }
@@ -107,8 +104,6 @@ class Card {
             name: this._cardName,
             link: this._cardLink
         })
-            //.then((data)=>{return 'test 8)'})
-            //newSection.addItem(newCard.saveCard());
             .then((data) => { return this.createCard() })
             .catch((err) => { console.log(`Ошибка загрузки карты на сервер${err}`) })
 

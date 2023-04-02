@@ -5,12 +5,16 @@ import Section from './Components/Section.js';
 import { PopupWithForm } from './Components/PopupWithForm.js';
 import UserInfo from './Components/UserInfo.js';
 import { PopupWithImage } from './Components/PopupWithImage';
-import { photoPopupSelector, validationConfig,  /* initialCards, */  tempElementSelector, addCardPopupSelector, editProfilePopupSelector, cardContainer, escKeyCode, openedPopupSelector } from "./Utils/constants.js";
+import { photoPopupSelector, validationConfig, editAvatarPopupSelector, messagePopupSelector, tempElementSelector, addCardPopupSelector, editProfilePopupSelector, cardContainer, escKeyCode, openedPopupSelector } from "./Utils/constants.js";
 import { Api } from './Components/Api.js';
+import { PopupWithMessage } from './Components/PopupWithMessage';
 const formEditProfile = document.forms['form-profile'];
 const editPopupOpenButtonElement = document.querySelector('.profile__edit-button');
 const addPopupOpenButtonElement = document.querySelector('.profile__add-button');
 const formAddCard = document.forms['form-content'];
+const formEditAvatar = document.forms['form-profile'];
+
+
 const photoPopupElement = document.querySelector('.popup-photo');
 const photoPopupElementImg = photoPopupElement.querySelector('.popup-photo__img');
 const photoPopupElementName = photoPopupElement.querySelector('.popup-photo__name');
@@ -19,11 +23,13 @@ const profileDescription = document.querySelector('.profile__description');
 const profileAvatar = document.querySelector('.profile__avatar');
 const editFormValidation = new FormValidator(validationConfig, formEditProfile);
 const addFormValidation = new FormValidator(validationConfig, formAddCard);
+const editAvatarFormValidation = new FormValidator(validationConfig, formEditAvatar);
 const userName = formEditProfile.querySelector('.popup__text_type_name');
 const userDescription = formEditProfile.querySelector('.popup__text_type_description');
 const editAvatarButton = document.querySelector('.profile__avatar-button');
 const initialCards = [];
 let currentUser = {};
+let newSection = {};
 const userApi = new Api({
     url: 'https://mesto.nomoreparties.co/v1/cohort-62/users/me',
     headers: {
@@ -43,27 +49,41 @@ function refreshUserInfo() {
     const userProfile = userApi.getAllElements();
     userProfile.then((data) => {
         currentUser = data;
-        console.log(currentUser)
+        //console.log(currentUser)
         profileName.textContent = currentUser.name;
         profileDescription.textContent = currentUser.about;
-        profileAvatar.textContent = currentUser.avatar;
+        profileAvatar.src = currentUser.avatar;
     });
     userProfile.then(refreshCards());
 }
-function refreshCards(){
+function refreshCards() {
     const cards = cardApi.getAllElements();
     cards.then((data) => {
-        console.log(data);
+        //console.log(data);
         data.map(item => {
             initialCards.push({ name: item.name, description: item.link, ownerId: item.owner._id, likes: item.likes, id: item._id });
         });
-        newSection.createSection();
-    });
-    console.log(initialCards);
+    })
+    cards.then(() => {
+        newSection = new Section({
+            data: initialCards, renderer: (item) => {
+                newSection.addItem(createCard(item).createCard());
+            }
+        },
+            cardContainer);
+    })
+    cards.then(() => { newSection.createSection() })
+    //cards.then(()=>{newSection.сre})
+    console.log('start')
+
 }
+
 refreshUserInfo();
+
 editFormValidation.enableValidation();
 addFormValidation.enableValidation();
+editAvatarFormValidation.enableValidation();
+
 const imagePreview = new PopupWithImage(photoPopupSelector, escKeyCode, openedPopupSelector);
 imagePreview.setEventListeners();
 function handleCardClick(evt) {
@@ -73,13 +93,16 @@ function handleCardClick(evt) {
 const profileInfo = new UserInfo(profileName, profileDescription);
 const editProfilePopup = new PopupWithForm(editProfilePopupSelector, escKeyCode, openedPopupSelector, validationConfig, (user) => {
     userApi.editProfile(user)
-    .then(()=>{
-        profileInfo.setUserInfo(user.name, user.description);
-    })
-    
+        .then(() => { profileInfo.setUserInfo(user.name, user.description) })
+        .then(() => { toggleButtonTextLoader(formEditProfile) })
+
     editProfilePopup.closePopup();
     editFormValidation.resetValidation();
 })
+
+const messagePopup = new PopupWithMessage(messagePopupSelector, escKeyCode, openedPopupSelector, button, (event) => { })
+
+
 editProfilePopup.setEventListeners();
 const openEditProfileForm = function () {
     const userInfo = profileInfo.getUserInfo();
@@ -105,20 +128,35 @@ const openAddCardForm = function () {
     addFormValidation.resetValidation();
     addCardPopup.openPopup();
 }
-const newSection = new Section({
+/* const newSection = new Section({
     data: initialCards, renderer: (item) => {
         newSection.addItem(createCard(item).createCard());
     }
 },
-    cardContainer);
+    cardContainer); */
 
-const openAvatarForm = function(){
-    console.log('its work')
+function toggleButtonTextLoader(formName) {
+    const button = formName.querySelector('.popup__save-button');
+    if (button.textContent = 'Cохранить') {
+        button.textContent = 'Cохранение...';
+    } else { button.textContent = 'Cохранить' }
+}
+
+const editAvatarPopup = new PopupWithForm(editAvatarPopupSelector, escKeyCode, openedPopupSelector, validationConfig, (user) => {
+    userApi.editAvatar(user.description)
+        .then((data) => { profileAvatar.src = data.avatar })
+        .then(() => { toggleButtonTextLoader(formEditAvatar) })
+        .then(() => editAvatarPopup.closePopup())
+})
+editAvatarPopup.setEventListeners();
+
+const openAvatarForm = function () {
+    editAvatarPopup.openPopup();
 }
 
 editPopupOpenButtonElement.addEventListener('click', openEditProfileForm);
 addPopupOpenButtonElement.addEventListener('click', openAddCardForm);
-editAvatarButton.addEventListener('click',openAvatarForm);
+editAvatarButton.addEventListener('click', openAvatarForm);
 
 
 export { photoPopupElementImg, photoPopupElementName };

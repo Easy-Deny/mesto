@@ -73,12 +73,31 @@
             </form>
         </div>
     </div>
+    <div class="popup popup_type_avatar">
+        <div class="popup__body">
+            <button class="popup__close-button" type="button"></button>
+            <h2 class="popup__title">Обновить Аватар</h2>
+            <form class="popup__content" action="#" name="form-avatar" novalidate>
+                <input class="popup__text popup__text_type_description" id="popup-url" type="url"
+                    placeholder="Ссылка на картинку" name="popupDescription" required>
+                <span class="popup__text-error popup-url-error"></span>
+                <button class="popup__save-button" title="Сохранить" type="submit">Сохранить</button>
+            </form>
+        </div>
+    </div>
     <div class="popup popup-photo">
         <div class="popup-photo__body">
             <button class="popup__close-button" type="button"></button>
             <img class="popup-photo__img"
                 src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg">
             <p class="popup-photo__name"></p>
+        </div>
+    </div>
+    <div class="popup popup_type_message">
+        <div class="popup__body">
+            <button class="popup__close-button" type="button"></button>
+            <h2 class="popup__title">Вы уверены?</h2>
+            <button class="popup__save-button" title="Да" type="submit">Сохранить</button>
         </div>
     </div>
     <!--<script src="./script/constants.js"></script>-->

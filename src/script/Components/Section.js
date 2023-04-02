@@ -10,7 +10,7 @@ export default class Section{
     }
     createSection() {
         //this._initialArray.forEach(item => {
-            this._initialArray.reduceRight((_, item) =>{
+           this._initialArray.reduceRight((_, item) =>{
           this._element = this._renderer(item);
           });
       }
