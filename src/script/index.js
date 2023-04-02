@@ -21,6 +21,7 @@ const editFormValidation = new FormValidator(validationConfig, formEditProfile);
 const addFormValidation = new FormValidator(validationConfig, formAddCard);
 const userName = formEditProfile.querySelector('.popup__text_type_name');
 const userDescription = formEditProfile.querySelector('.popup__text_type_description');
+const editAvatarButton = document.querySelector('.profile__avatar-button');
 const initialCards = [];
 let currentUser = {};
 const userApi = new Api({
@@ -111,8 +112,13 @@ const newSection = new Section({
 },
     cardContainer);
 
+const openAvatarForm = function(){
+    console.log('its work')
+}
+
 editPopupOpenButtonElement.addEventListener('click', openEditProfileForm);
-addPopupOpenButtonElement.addEventListener('click', openAddCardForm)
+addPopupOpenButtonElement.addEventListener('click', openAddCardForm);
+editAvatarButton.addEventListener('click',openAvatarForm);
 
 
 export { photoPopupElementImg, photoPopupElementName };
