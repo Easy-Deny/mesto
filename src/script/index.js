@@ -56,6 +56,7 @@ function refreshUserInfo() {
     });
     userProfile.then(refreshCards());
 }
+
 function refreshCards() {
     const cards = cardApi.getAllElements();
     cards.then((data) => {
