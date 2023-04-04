@@ -145,10 +145,10 @@ const openAvatarForm = function () {
     editAvatarFormValidation.resetValidation();
 }
 
-const messagePopup = new PopupWithMessage(messagePopupSelector, escKeyCode, openedPopupSelector, saveButtonSelector, () => {console.log('work')
+ const messagePopup = new PopupWithMessage(messagePopupSelector, escKeyCode, openedPopupSelector, saveButtonSelector, () => {console.log('work')
 //cardElement._deleteCard
 })
-messagePopup.setEventListeners()
+messagePopup.setEventListeners() 
 
 
 editPopupOpenButtonElement.addEventListener('click', openEditProfileForm);

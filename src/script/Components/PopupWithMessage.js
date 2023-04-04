@@ -10,6 +10,10 @@ export class PopupWithMessage extends Popup {
     }
 setEventListeners() {
         super.setEventListeners();
-        this._saveButton.addEventListener('click', this._event)
+        //this._saveButton.addEventListener('click', this._event)
             }
+
+setEvent(method){
+    this._saveButton.addEventListener('click', method)
+}
 }

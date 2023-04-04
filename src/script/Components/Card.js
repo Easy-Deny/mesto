@@ -93,13 +93,14 @@ class Card {
         }
     }
     openPopupWithMessage(){
+        this.messagePopup.setEvent(this._deleteCard)
         this.messagePopup.openPopup();
-        this. _deleteCard();
+       // this. _deleteCard();
     }
     _deleteCard(evt) {
             this._api.deleteElement(this._cardId)
             .then(() => { evt.target.closest('.element').remove() })
-            .catch((err) => console.log('не удалось удалить карточку'));
+            .catch((err) => console.log(`не удалось удалить карточку. Ошибка: ${err}`));
     }
     _setEventListeners() {
         this._addEventListeners('.element__like-button', this._addReaction);
