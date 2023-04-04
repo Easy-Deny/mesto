@@ -13,6 +13,7 @@ class Card {
         this._addReaction = this._addReaction.bind(this);
         //this._isLiked = this._isLiked.bind(this);
         this.createCard = this.createCard.bind(this);
+       
     }
     _createEmptyCard(element) {
         this._tempElement = document.querySelector(element).content;
@@ -46,6 +47,7 @@ class Card {
     }
     _isLiked() {
         this._liked = this._likes.some(element => {
+            //console.log(`${element._id} === ${this._currentUserId}`)
             return (element._id === this._currentUserId)
         })
         return this._liked
@@ -62,21 +64,32 @@ class Card {
         if (!this._isLiked()) {
             this._api.addLike(this._cardId)
                 .then((data) => {
+                    
                     this._likeCounter.textContent = data.likes.length;
+                    this._likes=data.likes;
+                    console.log(this._likeCounter.textContent);
+                    console.log(this._likeCounter);
+                    console.log(evt.target.nextSibling);
+
+                    //evt.target.previousSibling.textContent = data.likes.length;
                 }
                 )
                 .then(() => {
                     this._toggleLikeButton(evt);
+                    console.log('like');
                 })
                 .catch((err) => console.log(`не удалось поставить лайк ${err}`));
         } else {
             this._api.deleteLike(this._cardId)
                 .then((data) => {
                     this._likeCounter.textContent = data.likes.length;
+                    this._likes=data.likes
+                    console.log(this._likeCounter.textContent);
                 }
                 )
                 .then(() => {
                     this._toggleLikeButton(evt);
+                    console.log('dislike');
                 })
                 .catch((err) => console.log(`не удалось снять лайк ${err}`));
         }
@@ -106,8 +119,14 @@ class Card {
             .then((data) => {
                 this._cardId = data._id
                 this._ownerId = data.ownerId
+                this._likes = data.likes
+                console.log(this._likes);
+                console.log(data.likes);
+                this._currentUserId = data.owner._id
+                
             })
             .then(() => { return this.createCard() })
+            .then(() => { console.log(this.createCard()) })
             .catch((err) => { console.log(`Ошибка загрузки карты на сервер ${err}`) })
     }
 }

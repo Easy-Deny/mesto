@@ -12,7 +12,7 @@ const formEditProfile = document.forms['form-profile'];
 const editPopupOpenButtonElement = document.querySelector('.profile__edit-button');
 const addPopupOpenButtonElement = document.querySelector('.profile__add-button');
 const formAddCard = document.forms['form-content'];
-const formEditAvatar = document.forms['form-profile'];
+const formEditAvatar = document.forms['form-avatar'];
 
 
 const photoPopupElement = document.querySelector('.popup-photo');
@@ -114,10 +114,8 @@ function createCard(item) {
 }
 
 const addCardPopup = new PopupWithForm(addCardPopupSelector, escKeyCode, openedPopupSelector, validationConfig, (item) => {
-//console.log(item);
     const newCard = createCard(item);
     const data = newCard.saveCard();
-    console.log(data);
     newSection.addItem(newCard.createCard());
     addCardPopup.closePopup();
 })
@@ -126,12 +124,6 @@ const openAddCardForm = function () {
     addFormValidation.resetValidation();
     addCardPopup.openPopup();
 }
-/* const newSection = new Section({
-    data: initialCards, renderer: (item) => {
-        newSection.addItem(createCard(item).createCard());
-    }
-},
-    cardContainer); */
 
 function toggleButtonTextLoader(formName) {
     const button = formName.querySelector('.popup__save-button');
@@ -150,6 +142,7 @@ editAvatarPopup.setEventListeners();
 
 const openAvatarForm = function () {
     editAvatarPopup.openPopup();
+    editAvatarFormValidation.resetValidation();
 }
 
 editPopupOpenButtonElement.addEventListener('click', openEditProfileForm);
