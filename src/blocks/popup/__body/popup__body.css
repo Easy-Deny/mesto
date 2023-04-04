@@ -3,7 +3,7 @@
     box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
     border-radius: 10px;
     width: 430px;
-    height: 260px;
+    /* height: 260px; */
     position: relative;
     padding-top: 34px;
     padding-bottom: 37px;
@@ -12,7 +12,7 @@
 @media screen and (max-width:490px) {
     .popup__body {
         width: 282px;
-        height: 270px;
+        /* height: 270px; */
         padding-top: 24px;
         padding-bottom: 27px;
     }

@@ -146,7 +146,8 @@ const openAvatarForm = function () {
 }
 
 const messagePopup = new PopupWithMessage(messagePopupSelector, escKeyCode, openedPopupSelector, validationConfig, () => {})
-
+messagePopup.openPopup();
+messagePopup.setEventListeners()
 
 
 editPopupOpenButtonElement.addEventListener('click', openEditProfileForm);
