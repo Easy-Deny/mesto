@@ -5,7 +5,7 @@ import Section from './Components/Section.js';
 import { PopupWithForm } from './Components/PopupWithForm.js';
 import UserInfo from './Components/UserInfo.js';
 import { PopupWithImage } from './Components/PopupWithImage';
-import { photoPopupSelector, validationConfig, editAvatarPopupSelector, messagePopupSelector, tempElementSelector, addCardPopupSelector, editProfilePopupSelector, cardContainer, escKeyCode, openedPopupSelector } from "./Utils/constants.js";
+import { photoPopupSelector, validationConfig, editAvatarPopupSelector, messagePopupSelector, tempElementSelector, addCardPopupSelector, editProfilePopupSelector, cardContainer, escKeyCode, openedPopupSelector,saveButtonSelector } from "./Utils/constants.js";
 import { Api } from './Components/Api.js';
 import { PopupWithMessage } from './Components/PopupWithMessage.js';
 
@@ -107,7 +107,7 @@ const openEditProfileForm = function () {
     editProfilePopup.openPopup();
 }
 function createCard(item) {
-    const cardElement = new Card(item.name, item.description, item.ownerId, item.id, item.likes, tempElementSelector, handleCardClick, currentUser._id, cardApi, toggleButtonTextLoader, formEditProfile);
+    const cardElement = new Card(item.name, item.description, item.ownerId, item.id, item.likes, tempElementSelector, handleCardClick, currentUser._id, cardApi, toggleButtonTextLoader, formEditProfile, messagePopup);
     return cardElement
 }
 
@@ -124,7 +124,7 @@ const openAddCardForm = function () {
 }
 
 function toggleButtonTextLoader(formName, status) {
-    formName.querySelector('.popup__save-button').textContent = status;
+    formName.querySelector(saveButtonSelector).textContent = status;
 }
 
 const editAvatarPopup = new PopupWithForm(editAvatarPopupSelector, escKeyCode, openedPopupSelector, validationConfig, (user) => {
@@ -145,8 +145,9 @@ const openAvatarForm = function () {
     editAvatarFormValidation.resetValidation();
 }
 
-const messagePopup = new PopupWithMessage(messagePopupSelector, escKeyCode, openedPopupSelector, validationConfig, () => {})
-messagePopup.openPopup();
+const messagePopup = new PopupWithMessage(messagePopupSelector, escKeyCode, openedPopupSelector, saveButtonSelector, () => {console.log('work')
+//cardElement._deleteCard
+})
 messagePopup.setEventListeners()
 
 

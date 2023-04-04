@@ -1,5 +1,5 @@
 class Card {
-    constructor(cardName, cardLink, ownerId, cardId, likes, tempElementSelector, handleCardClick, currentUserId, api,toggleButtonTextLoader,formEditProfile) {
+    constructor(cardName, cardLink, ownerId, cardId, likes, tempElementSelector, handleCardClick, currentUserId, api, toggleButtonTextLoader, formEditProfile, messagePopup) {
         this._cardName = cardName;
         this._cardLink = cardLink;
         this._ownerId = ownerId;
@@ -15,6 +15,8 @@ class Card {
         this.createCard = this.createCard.bind(this);
         this.toggleButtonTextLoader = toggleButtonTextLoader;
         this.formEditProfile = formEditProfile;
+        this.messagePopup = messagePopup;
+        this.openPopupWithMessage = this.openPopupWithMessage.bind(this);
     }
     _createEmptyCard(element) {
         this._tempElement = document.querySelector(element).content;
@@ -90,14 +92,19 @@ class Card {
                 .catch((err) => console.log(`не удалось снять лайк ${err}`));
         }
     }
+    openPopupWithMessage(){
+        this.messagePopup.openPopup();
+        this. _deleteCard();
+    }
     _deleteCard(evt) {
-        this._api.deleteElement(this._cardId)
+            this._api.deleteElement(this._cardId)
             .then(() => { evt.target.closest('.element').remove() })
             .catch((err) => console.log('не удалось удалить карточку'));
     }
     _setEventListeners() {
         this._addEventListeners('.element__like-button', this._addReaction);
-        this._addEventListeners('.element__delete-button', this._deleteCard);
+        //this._addEventListeners('.element__delete-button', this.openPopupWithMessage);
+        this._addEventListeners('.element__delete-button', this. _deleteCard);
         this._addEventListeners('.element__img', (evt) => { this._handleCardClick(evt) });
     }
     createCard() {
@@ -112,10 +119,10 @@ class Card {
             name: this._cardName,
             link: this._cardLink
         })
-        .then((data)=>{
-            this.toggleButtonTextLoader(this.formEditProfile,'Сохранение...')
-            return data
-        })
+            .then((data) => {
+                this.toggleButtonTextLoader(this.formEditProfile, 'Сохранение...')
+                return data
+            })
             .then((data) => {
                 this._cardId = data._id
                 this._ownerId = data.ownerId
@@ -124,8 +131,8 @@ class Card {
 
             })
             .then(() => { return this.createCard() })
-            
-            .then(() => { this.toggleButtonTextLoader(this.formEditProfile,'Сохранить') })
+
+            .then(() => { this.toggleButtonTextLoader(this.formEditProfile, 'Сохранить') })
             .catch((err) => { console.log(`Ошибка загрузки карты на сервер ${err}`) })
     }
 }

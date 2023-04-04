@@ -43,3 +43,4 @@ export const editProfilePopupSelector = 'popup_type_edit-profile';
 export const editAvatarPopupSelector = 'popup_type_avatar';
 export const messagePopupSelector = 'popup_type_message';
 export const cardContainer = '.elements';
+export const saveButtonSelector = '.popup__save-button';
