@@ -7,6 +7,7 @@ import UserInfo from './Components/UserInfo.js';
 import { PopupWithImage } from './Components/PopupWithImage';
 import { photoPopupSelector, validationConfig, editAvatarPopupSelector, messagePopupSelector, tempElementSelector, addCardPopupSelector, editProfilePopupSelector, cardContainer, escKeyCode, openedPopupSelector } from "./Utils/constants.js";
 import { Api } from './Components/Api.js';
+import { PopupWithMessage } from './Components/PopupWithMessage.js';
 
 const formEditProfile = document.forms['form-profile'];
 const editPopupOpenButtonElement = document.querySelector('.profile__edit-button');
@@ -96,8 +97,6 @@ const editProfilePopup = new PopupWithForm(editProfilePopupSelector, escKeyCode,
         .then(() => { editProfilePopup.closePopup() })
         .then(() => { toggleButtonTextLoader(formEditAvatar, 'Сохранить') })
         .catch((err) => { console.log(`не удалось сохранить новый профиль, Ошибка: ${err}`) })
-
-    //editFormValidation.resetValidation();
 })
 editProfilePopup.setEventListeners();
 const openEditProfileForm = function () {
@@ -122,7 +121,6 @@ addCardPopup.setEventListeners();
 const openAddCardForm = function () {
     addFormValidation.resetValidation();
     addCardPopup.openPopup();
-    //toggleButtonTextLoader(formAddCard)
 }
 
 function toggleButtonTextLoader(formName, status) {
@@ -143,10 +141,13 @@ const editAvatarPopup = new PopupWithForm(editAvatarPopupSelector, escKeyCode, o
 editAvatarPopup.setEventListeners();
 
 const openAvatarForm = function () {
-    //toggleButtonTextLoader(formEditAvatar)
     editAvatarPopup.openPopup();
     editAvatarFormValidation.resetValidation();
 }
+
+const messagePopup = new PopupWithMessage(messagePopupSelector, escKeyCode, openedPopupSelector, validationConfig, () => {})
+
+
 
 editPopupOpenButtonElement.addEventListener('click', openEditProfileForm);
 addPopupOpenButtonElement.addEventListener('click', openAddCardForm);

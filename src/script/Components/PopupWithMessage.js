@@ -1,6 +1,6 @@
 import { Popup } from "./Popup.js";
 
-class PopupWithMessage extends Popup {
+export class PopupWithMessage extends Popup {
     constructor(popupSelector,escKeyCode,openedPopupSelector, button, event){
     super(popupSelector,escKeyCode,openedPopupSelector);
     this.setEventListeners = this.setEventListeners.bind(this);
@@ -9,6 +9,7 @@ class PopupWithMessage extends Popup {
     }
 setEventListeners() {
         super.setEventListeners();
-                this._button.addEventListener('click', this._event)
+                //this._button.addEventListener('click', this._event)
+                console.log
             }
 }

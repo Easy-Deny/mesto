@@ -67,11 +67,12 @@ class Card {
                 .then((data) => {
                     this._likeCounter.textContent = data.likes.length;
                     this._likes = data.likes;
+                    console.log(this._likeCounter);
                 }
                 )
                 .then(() => {
                     this._toggleLikeButton(evt);
-                    console.log('like');
+                    //console.log('like');
                 })
                 .catch((err) => console.log(`не удалось поставить лайк ${err}`));
         } else {
@@ -84,7 +85,7 @@ class Card {
                 )
                 .then(() => {
                     this._toggleLikeButton(evt);
-                    console.log('dislike');
+                    //console.log('dislike');
                 })
                 .catch((err) => console.log(`не удалось снять лайк ${err}`));
         }
