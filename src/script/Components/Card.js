@@ -103,10 +103,12 @@ class Card {
             name: this._cardName,
             link: this._cardLink
         })
-            .then((data) => { return this.createCard() })
-            .catch((err) => { console.log(`Ошибка загрузки карты на сервер${err}`) })
-
-
+            .then((data) => {
+                this._cardId = data._id
+                this._ownerId = data.ownerId
+            })
+            .then(() => { return this.createCard() })
+            .catch((err) => { console.log(`Ошибка загрузки карты на сервер ${err}`) })
     }
 }
 export { Card };

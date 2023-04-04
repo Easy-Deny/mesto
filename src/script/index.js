@@ -49,7 +49,6 @@ function refreshUserInfo() {
     const userProfile = userApi.getAllElements();
     userProfile.then((data) => {
         currentUser = data;
-        //console.log(currentUser)
         profileName.textContent = currentUser.name;
         profileDescription.textContent = currentUser.about;
         profileAvatar.src = currentUser.avatar;
@@ -60,7 +59,6 @@ function refreshUserInfo() {
 function refreshCards() {
     const cards = cardApi.getAllElements();
     cards.then((data) => {
-        //console.log(data);
         data.map(item => {
             initialCards.push({ name: item.name, description: item.link, ownerId: item.owner._id, likes: item.likes, id: item._id });
         });
@@ -74,9 +72,7 @@ function refreshCards() {
             cardContainer);
     })
     cards.then(() => { newSection.createSection() })
-    //cards.then(()=>{newSection.сre})
     console.log(initialCards)
-
 }
 
 refreshUserInfo();
@@ -113,15 +109,15 @@ const openEditProfileForm = function () {
     editProfilePopup.openPopup();
 }
 function createCard(item) {
-    
     const cardElement = new Card(item.name, item.description, item.ownerId, item.id, item.likes, tempElementSelector, handleCardClick, currentUser._id, cardApi);
     return cardElement
 }
 
 const addCardPopup = new PopupWithForm(addCardPopupSelector, escKeyCode, openedPopupSelector, validationConfig, (item) => {
-console.log(item);
+//console.log(item);
     const newCard = createCard(item);
-    newCard.saveCard();
+    const data = newCard.saveCard();
+    console.log(data);
     newSection.addItem(newCard.createCard());
     addCardPopup.closePopup();
 })
