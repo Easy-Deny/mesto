@@ -1,5 +1,5 @@
 class Card {
-    constructor(cardName, cardLink, ownerId, cardId, likes, tempElementSelector, handleCardClick, currentUserId, api) {
+    constructor(cardName, cardLink, ownerId, cardId, likes, tempElementSelector, handleCardClick, currentUserId, api,toggleButtonTextLoader,formEditProfile) {
         this._cardName = cardName;
         this._cardLink = cardLink;
         this._ownerId = ownerId;
@@ -13,7 +13,8 @@ class Card {
         this._addReaction = this._addReaction.bind(this);
         //this._isLiked = this._isLiked.bind(this);
         this.createCard = this.createCard.bind(this);
-       
+        this.toggleButtonTextLoader = toggleButtonTextLoader;
+        this.formEditProfile = formEditProfile;
     }
     _createEmptyCard(element) {
         this._tempElement = document.querySelector(element).content;
@@ -64,14 +65,8 @@ class Card {
         if (!this._isLiked()) {
             this._api.addLike(this._cardId)
                 .then((data) => {
-                    
                     this._likeCounter.textContent = data.likes.length;
-                    this._likes=data.likes;
-                    console.log(this._likeCounter.textContent);
-                    console.log(this._likeCounter);
-                    console.log(evt.target.nextSibling);
-
-                    //evt.target.previousSibling.textContent = data.likes.length;
+                    this._likes = data.likes;
                 }
                 )
                 .then(() => {
@@ -83,7 +78,7 @@ class Card {
             this._api.deleteLike(this._cardId)
                 .then((data) => {
                     this._likeCounter.textContent = data.likes.length;
-                    this._likes=data.likes
+                    this._likes = data.likes
                     console.log(this._likeCounter.textContent);
                 }
                 )
@@ -116,17 +111,20 @@ class Card {
             name: this._cardName,
             link: this._cardLink
         })
+        .then((data)=>{
+            this.toggleButtonTextLoader(this.formEditProfile,'Сохранение...')
+            return data
+        })
             .then((data) => {
                 this._cardId = data._id
                 this._ownerId = data.ownerId
                 this._likes = data.likes
-                console.log(this._likes);
-                console.log(data.likes);
                 this._currentUserId = data.owner._id
-                
+
             })
             .then(() => { return this.createCard() })
-            .then(() => { console.log(this.createCard()) })
+            
+            .then(() => { this.toggleButtonTextLoader(this.formEditProfile,'Сохранить') })
             .catch((err) => { console.log(`Ошибка загрузки карты на сервер ${err}`) })
     }
 }

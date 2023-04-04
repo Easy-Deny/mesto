@@ -9,7 +9,13 @@ export class Api {
             method: 'GET',
             headers: this.headers,
         })
-            .then((res) => { return res.json() })
+        .then((res) => {
+            if (res.ok) {
+                //console.log(data);
+                return res.json()
+            };
+            return Promise.reject('произошла ошибка');
+        })
     }
     addElement(data) {
         return fetch(this.url, {
