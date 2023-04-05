@@ -8,6 +8,7 @@ import { PopupWithImage } from './Components/PopupWithImage';
 import { photoPopupSelector, validationConfig, editAvatarPopupSelector, messagePopupSelector, tempElementSelector, addCardPopupSelector, editProfilePopupSelector, cardContainer, escKeyCode, openedPopupSelector, saveButtonSelector } from "./Utils/constants.js";
 import { Api } from './Components/Api.js';
 import { PopupWithMessage } from './Components/PopupWithMessage.js';
+import { toggleButtonTextLoader } from './Utils/utils.js';
 
 const formEditProfile = document.forms['form-profile'];
 const editPopupOpenButtonElement = document.querySelector('.profile__edit-button');
@@ -44,8 +45,9 @@ function refreshUserInfo() {
         profileInfo.setUserInfo(data.name, data.about)
         profileAvatar.src = currentUser.avatar;
     })
+    .then(refreshCards())
     .catch((err) => { console.log(`не загрузить данные профиля, Ошибка: ${err}`) })
-    userProfile.then(refreshCards());
+    
 }
 
 function refreshCards() {
@@ -55,7 +57,7 @@ function refreshCards() {
             initialCards.push({ name: item.name, description: item.link, ownerId: item.owner._id, likes: item.likes, id: item._id });
         });
     })
-    cards.then(() => {
+    .then(() => {
         newSection = new Section({
             data: initialCards, renderer: (item) => {
                 newSection.addItem(createCard(item).createCard());
@@ -63,7 +65,7 @@ function refreshCards() {
         },
             cardContainer);
     })
-    cards.then(() => { newSection.createSection() })
+    .then(() => { newSection.createSection() })
     console.log(initialCards)
 }
 
@@ -125,9 +127,7 @@ const openAddCardForm = function () {
     addCardPopup.openPopup();
 }
 
-function toggleButtonTextLoader(formName, status) {
-    formName.querySelector(saveButtonSelector).textContent = status;
-}
+
 
 const editAvatarPopup = new PopupWithForm(editAvatarPopupSelector, escKeyCode, openedPopupSelector, validationConfig, (user) => {
     api.editAvatar(user.description)
