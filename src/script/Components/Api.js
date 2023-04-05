@@ -2,6 +2,7 @@ export class Api {
     constructor(config) {
         this.url = config.url
         this.headers = config.headers
+        this.checkServerStatus = this.checkServerStatus.bind(this)
     }
     getAllElements() {
         return fetch(`${this.url}/users/me`, {
@@ -109,12 +110,17 @@ export class Api {
                 avatar: data
             })
         })
-            .then((res) => {
-                if (res.ok) {
-                    //console.log(data);
+            .then((res) => {//this.checkServerStatus(res)
+                 if (res.ok) {
                     return res.json()
                 };
-                return Promise.reject('произошла ошибка');
+                return Promise.reject('произошла ошибка'); 
             })
+    }
+    checkServerStatus(res){
+        if (res.ok) {
+            return res.json()
+        };
+        return Promise.reject('произошла ошибка');
     }
 }
