@@ -1,5 +1,5 @@
 class Card {
-    constructor(cardName, cardLink, ownerId, cardId, likes, tempElementSelector, handleCardClick, currentUserId, api, toggleButtonTextLoader, formEditProfile, messagePopup, handleDeleteIconClick) {
+    constructor(cardName, cardLink, ownerId, cardId, likes, tempElementSelector, handleCardClick, currentUserId, api, toggleButtonTextLoader, formEditProfile, messagePopup, handleDeleteIconClick, handleAddLike, handDeleteLike) {
         this._cardName = cardName;
         this._cardLink = cardLink;
         this._ownerId = ownerId;
@@ -15,7 +15,11 @@ class Card {
         this.toggleButtonTextLoader = toggleButtonTextLoader;
         this.formEditProfile = formEditProfile;
         this.messagePopup = messagePopup;
-        this.handleDeleteIconClick = handleDeleteIconClick
+        this.handleDeleteIconClick = handleDeleteIconClick;
+        this.handleAddLike = handleAddLike;
+        this.handDeleteLike = handDeleteLike;
+        this._toggleLikeButton = this._toggleLikeButton.bind(this);
+        this._isLiked = this._isLiked.bind(this);
     }
     _createEmptyCard(element) {
         this._tempElement = document.querySelector(element).content;
@@ -38,13 +42,16 @@ class Card {
               this._likeButton.classList.toggle('element__like-button_is-liked')
               } 
           }); */
-        if (this._isLiked()) {
+        if (this._isLiked(this._likes)) {
             this._likeButton.classList.toggle('element__like-button_is-liked')
         }
         return this._likeCounter
     }
-    _isLiked() {
-        this._liked = this._likes.some(element => {
+    getLikes(like){
+        this._likes=like;
+    }
+    _isLiked(like) {
+        this._liked = like.some(element => {
             return (element._id === this._currentUserId)
         })
         return this._liked
@@ -58,8 +65,10 @@ class Card {
         evt.target.classList.toggle('element__like-button_is-liked')
     }
     _addReaction(evt) {
-        if (!this._isLiked()) {
-            this._api.addLike(this._cardId)
+        if (!this._isLiked(this._likes)) {
+            this.handleAddLike(this._cardId, this._likeCounter, this._likes, this._toggleLikeButton,evt)
+            console.log('like');
+            /* this._api.addLike(this._cardId)
                 .then((data) => {
                     this._likeCounter.textContent = data.likes.length;
                     this._likes = data.likes;
@@ -70,9 +79,11 @@ class Card {
                     this._toggleLikeButton(evt);
                     //console.log('like');
                 })
-                .catch((err) => console.log(`не удалось поставить лайк ${err}`));
+                .catch((err) => console.log(`не удалось поставить лайк ${err}`)); */
         } else {
-            this._api.deleteLike(this._cardId)
+            this.handDeleteLike(this._cardId, this._likeCounter, this._likes, this._toggleLikeButton,evt)
+            console.log('dislike');
+            /* this._api.deleteLike(this._cardId)
                 .then((data) => {
                     this._likeCounter.textContent = data.likes.length;
                     this._likes = data.likes
@@ -83,7 +94,7 @@ class Card {
                     this._toggleLikeButton(evt);
                     //console.log('dislike');
                 })
-                .catch((err) => console.log(`не удалось снять лайк ${err}`));
+                .catch((err) => console.log(`не удалось снять лайк ${err}`)); */
         }
     }
     _deleteCard(evt) {
@@ -93,7 +104,7 @@ class Card {
     }
     _setEventListeners() {
         this._addEventListeners('.element__like-button', this._addReaction);
-        this._addEventListeners('.element__delete-button', this.handleDeleteIconClick);
+        this._addEventListeners('.element__delete-button', (evt)=>{this.handleDeleteIconClick(this._cardId,evt)});
         //this._addEventListeners('.element__delete-button', this._deleteCard);
         this._addEventListeners('.element__img', (evt) => { this._handleCardClick(evt) });
     }

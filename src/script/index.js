@@ -15,6 +15,7 @@ const editPopupOpenButtonElement = document.querySelector('.profile__edit-button
 const addPopupOpenButtonElement = document.querySelector('.profile__add-button');
 const formAddCard = document.forms['form-content'];
 const formEditAvatar = document.forms['form-avatar'];
+const messageForm = document.querySelector('.popup_type_message')
 const photoPopupElement = document.querySelector('.popup-photo');
 const photoPopupElementImg = photoPopupElement.querySelector('.popup-photo__img');
 const photoPopupElementName = photoPopupElement.querySelector('.popup-photo__name');
@@ -45,8 +46,8 @@ function refreshUserInfo() {
         profileInfo.setUserInfo(data.name, data.about)
         profileAvatar.src = currentUser.avatar;
     })
-    .then(refreshCards())
-    .catch((err) => { console.log(`не загрузить данные профиля, Ошибка: ${err}`) })
+        .then(refreshCards())
+        .catch((err) => { console.log(`не загрузить данные профиля, Ошибка: ${err}`) })
 }
 function refreshCards() {
     const cards = api.getAllCards();
@@ -55,15 +56,15 @@ function refreshCards() {
             initialCards.push({ name: item.name, description: item.link, ownerId: item.owner._id, likes: item.likes, id: item._id });
         });
     })
-    .then(() => {
-        newSection = new Section({
-            data: initialCards, renderer: (item) => {
-                newSection.addItem(createCard(item).createCard());
-            }
-        },
-            cardContainer);
-    })
-    .then(() => { newSection.createSection() })
+        .then(() => {
+            newSection = new Section({
+                data: initialCards, renderer: (item) => {
+                    newSection.addItem(createCard(item).createCard());
+                }
+            },
+                cardContainer);
+        })
+        .then(() => { newSection.createSection() })
     console.log(initialCards)
 }
 
@@ -98,17 +99,81 @@ const openEditProfileForm = function () {
     editFormValidation.resetValidation();
     editProfilePopup.openPopup();
 }
-function createCard(item) {
-    const cardElement = new Card(item.name, item.description, item.ownerId, item.id, item.likes, tempElementSelector, handleCardClick, currentUser._id, api, toggleButtonTextLoader, formEditProfile, messagePopup, (item)=>{
-        messagePopup.openPopup();
-        messagePopup.setSubmitAction(() => {
-            console.log('delete2');
-            api.deleteElement(item.id)
-                .then(() => { evt.target.closest('.element').remove() })
-                .then(() => messagePopup.closePopup())
-                .catch((err) => console.log(`не удалось удалить карточку. Ошибка: ${err}`));
+/* function handleAddLike(cardId, likeCounter, likes, toggleLikeButton,evt) {
+    api.addLike(cardId)
+        .then((data) => {
+            likeCounter.textContent = data.likes.length;
+            likes = data.likes;
+            console.log(likeCounter);
+            return data.likes;
         })
-    })
+        .then(() => { toggleLikeButton(evt) })
+        .catch((err) => console.log(`не удалось поставить лайк ${err}`));
+}
+function handDeleteLike(cardId, likeCounter, likes, toggleLikeButton,evt) {
+    api.deleteLike(cardId)
+        .then((data) => {
+            likeCounter.textContent = data.likes.length;
+            likes = data.likes
+            console.log(likeCounter.textContent);
+        }
+        )
+        .then(() => {toggleLikeButton(evt)})
+        .catch((err) => console.log(`не удалось снять лайк ${err}`));
+} */
+function createCard(item) {
+    const cardElement = new Card(
+        item.name,
+        item.description,
+        item.ownerId,
+        item.id,
+        item.likes,
+        tempElementSelector,
+        handleCardClick,
+        currentUser._id,
+        api,
+        toggleButtonTextLoader,
+        formEditProfile,
+        messagePopup,
+        //deleteCard
+        (item, evt) => {
+            messagePopup.openPopup();
+            messagePopup.removeEventListener();
+            messagePopup.setSubmitAction(() => {
+                api.deleteElement(item)
+                    .then(() => toggleButtonTextLoader(messageForm, 'Сохранение...'))
+                    .then(() => console.log(`карта id${item} удалена`))
+                    .then(() => { evt.target.closest('.element').remove() })
+                    .then(() => messagePopup.closePopup())
+                    .then(() => toggleButtonTextLoader(messageForm, 'Сохранить'))
+                    .catch((err) => console.log(`не удалось удалить карточку. Ошибка: ${err}`));
+            })
+            messagePopup.addEventListener();
+        },
+        // handleAddLike,
+        (cardId, likeCounter, likes, toggleLikeButton, evt) => {
+            api.addLike(cardId)
+                .then((data) => {
+                    likeCounter.textContent = data.likes.length;
+                    likes = data.likes;
+                    cardElement.getLikes(data.likes);
+                })
+                .then(() => { toggleLikeButton(evt) })
+                .catch((err) => console.log(`не удалось поставить лайк ${err}`));
+        },
+        // handDeleteLike,
+        (cardId, likeCounter, likes, toggleLikeButton, evt) => {
+            api.deleteLike(cardId)
+                .then((data) => {
+                    likeCounter.textContent = data.likes.length;
+                    likes = data.likes
+                    cardElement.getLikes(data.likes);
+                }
+                )
+                .then(() => { toggleLikeButton(evt) })
+                .catch((err) => console.log(`не удалось снять лайк ${err}`));
+        }
+    )
     return cardElement
 }
 const addCardPopup = new PopupWithForm(addCardPopupSelector, escKeyCode, openedPopupSelector, validationConfig, (item) => {
