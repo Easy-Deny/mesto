@@ -44,7 +44,8 @@ function refreshUserInfo() {
         profileName.textContent = currentUser.name;
         profileDescription.textContent = currentUser.about;
         profileAvatar.src = currentUser.avatar;
-    });
+    })
+    .catch((err) => { console.log(`не загрузить данные профиля, Ошибка: ${err}`) })
     userProfile.then(refreshCards());
 }
 
