@@ -29,23 +29,16 @@ const editAvatarButton = document.querySelector('.profile__avatar-button');
 const initialCards = [];
 let currentUser = {};
 let newSection = {};
-const userApi = new Api({
-    url: 'https://mesto.nomoreparties.co/v1/cohort-62/users/me',
-    headers: {
-        'content-type': 'application/json',
-        authorization: '8fe21241-d4e3-40e9-bdfb-586c0b845bc2'
-    }
-})
-const cardApi = new Api({
-    url: 'https://mesto.nomoreparties.co/v1/cohort-62/cards',
-    headers: {
-        'content-type': 'application/json',
-        authorization: '8fe21241-d4e3-40e9-bdfb-586c0b845bc2'
-    }
-})
 
+const api = new Api({
+    url: 'https://mesto.nomoreparties.co/v1/cohort-62',
+    headers: {
+        'content-type': 'application/json',
+        authorization: '8fe21241-d4e3-40e9-bdfb-586c0b845bc2'
+    }
+})
 function refreshUserInfo() {
-    const userProfile = userApi.getAllElements();
+    const userProfile = api.getAllElements();
     userProfile.then((data) => {
         currentUser = data;
         profileName.textContent = currentUser.name;
@@ -56,7 +49,7 @@ function refreshUserInfo() {
 }
 
 function refreshCards() {
-    const cards = cardApi.getAllElements();
+    const cards = api.getAllCards();
     cards.then((data) => {
         data.map(item => {
             initialCards.push({ name: item.name, description: item.link, ownerId: item.owner._id, likes: item.likes, id: item._id });
@@ -88,7 +81,7 @@ function handleCardClick(evt) {
 }
 const profileInfo = new UserInfo(profileName, profileDescription);
 const editProfilePopup = new PopupWithForm(editProfilePopupSelector, escKeyCode, openedPopupSelector, validationConfig, (user) => {
-    userApi.editProfile(user)
+    api.editProfile(user)
         .then((data) => {
             toggleButtonTextLoader(formEditAvatar, 'Сохранение.....')
             return data
@@ -107,11 +100,11 @@ const openEditProfileForm = function () {
     editProfilePopup.openPopup();
 }
 function createCard(item) {
-    const cardElement = new Card(item.name, item.description, item.ownerId, item.id, item.likes, tempElementSelector, handleCardClick, currentUser._id, cardApi, toggleButtonTextLoader, formEditProfile, messagePopup, (item)=>{
+    const cardElement = new Card(item.name, item.description, item.ownerId, item.id, item.likes, tempElementSelector, handleCardClick, currentUser._id, api, toggleButtonTextLoader, formEditProfile, messagePopup, (item)=>{
         messagePopup.openPopup();
         messagePopup.setSubmitAction(() => {
             console.log('delete2');
-            cardApi.deleteElement(item.id)
+            api.deleteElement(item.id)
                 .then(() => { evt.target.closest('.element').remove() })
                 .then(() => messagePopup.closePopup())
                 .catch((err) => console.log(`не удалось удалить карточку. Ошибка: ${err}`));
@@ -137,7 +130,7 @@ function toggleButtonTextLoader(formName, status) {
 }
 
 const editAvatarPopup = new PopupWithForm(editAvatarPopupSelector, escKeyCode, openedPopupSelector, validationConfig, (user) => {
-    userApi.editAvatar(user.description)
+    api.editAvatar(user.description)
         .then((data) => {
             toggleButtonTextLoader(formEditAvatar, 'Сохранение.....')
             return data

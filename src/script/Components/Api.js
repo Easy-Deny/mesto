@@ -5,7 +5,20 @@ export class Api {
     }
 
     getAllElements() {
-        return fetch(this.url, {
+        return fetch(`${this.url}/users/me`, {
+            method: 'GET',
+            headers: this.headers,
+        })
+        .then((res) => {
+            if (res.ok) {
+                //console.log(data);
+                return res.json()
+            };
+            return Promise.reject('произошла ошибка');
+        })
+    }
+    getAllCards() {
+        return fetch(`${this.url}/cards`, {
             method: 'GET',
             headers: this.headers,
         })
@@ -18,7 +31,7 @@ export class Api {
         })
     }
     addElement(data) {
-        return fetch(this.url, {
+        return fetch(`${this.url}/cards`, {
             method: 'POST',
             headers: this.headers,
             body: JSON.stringify({
@@ -36,7 +49,7 @@ export class Api {
     }
 
     deleteElement(id) {
-        return fetch(`${this.url}/${id}`, {
+        return fetch(`${this.url}/cards/${id}`, {
             method: 'DELETE',
             headers: this.headers
         })
@@ -49,7 +62,7 @@ export class Api {
             })
     }
     editProfile(data) {
-        return fetch(this.url, {
+        return fetch(`${this.url}/users/me`, {
             method: 'PATCH',
             headers: this.headers,
             body: JSON.stringify({
@@ -67,7 +80,7 @@ export class Api {
     }
 
     addLike(id) {
-        return fetch(`${this.url}/${id}/likes`, {
+        return fetch(`${this.url}/cards/${id}/likes`, {
             method: 'PUT',
             headers: this.headers
         })
@@ -80,7 +93,7 @@ export class Api {
     }
 
     deleteLike(id) {
-        return fetch(`${this.url}/${id}/likes`, {
+        return fetch(`${this.url}/cards/${id}/likes`, {
             method: 'DELETE',
             headers: this.headers
         })
@@ -94,7 +107,7 @@ export class Api {
 
     editAvatar(data){
         //console.log(data);
-        return fetch(`${this.url}/avatar`, {
+        return fetch(`${this.url}/users/me/avatar`, {
             method: 'PATCH',
             headers: this.headers,
             body: JSON.stringify({
