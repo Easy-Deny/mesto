@@ -23,11 +23,11 @@ export const initialCards = [
         name: 'Байкал',
         description: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     }
-    
+
 ];
 export const escKeyCode = 27;
 export const openedPopupSelector = 'popup_is-opened';
-export const photoPopupSelector= 'popup-photo' ;
+export const photoPopupSelector = 'popup-photo';
 export const validationConfig = {
     formSelector: '.popup__content',
     inputSelector: '.popup__text',

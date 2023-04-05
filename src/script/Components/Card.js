@@ -11,12 +11,10 @@ class Card {
         this._likes = likes;
         this._deleteCard = this._deleteCard.bind(this);
         this._addReaction = this._addReaction.bind(this);
-        //this._isLiked = this._isLiked.bind(this);
         this.createCard = this.createCard.bind(this);
         this.toggleButtonTextLoader = toggleButtonTextLoader;
         this.formEditProfile = formEditProfile;
         this.messagePopup = messagePopup;
-        //this.openPopupWithMessage = this.openPopupWithMessage.bind(this);
         this.handleDeleteIconClick = handleDeleteIconClick
     }
     _createEmptyCard(element) {
@@ -31,10 +29,7 @@ class Card {
         this._createdCardImg.src = this._cardLink;
         this._createdCardImg.alt = this._cardName;
         this._likeCounter.textContent = this._likes.length;
-        //console.log(this._cardId);
-        //console.log(this._currentUserId);
         if ((this._currentUserId != this._ownerId) && (this._cardId != undefined)) {
-            // console.log('true');
             createdCard.querySelector('.element__delete-button').style.visibility = 'hidden';
         }
         /*   this._likes.forEach(element => {
@@ -43,7 +38,6 @@ class Card {
               this._likeButton.classList.toggle('element__like-button_is-liked')
               } 
           }); */
-
         if (this._isLiked()) {
             this._likeButton.classList.toggle('element__like-button_is-liked')
         }
@@ -51,7 +45,6 @@ class Card {
     }
     _isLiked() {
         this._liked = this._likes.some(element => {
-            //console.log(`${element._id} === ${this._currentUserId}`)
             return (element._id === this._currentUserId)
         })
         return this._liked
@@ -109,7 +102,6 @@ class Card {
         this._fillEmptyCard(this._createdCard);
         this._setEventListeners();
         return this._createdCard;
-
     }
     saveCard() {
         this._api.addElement({
@@ -125,7 +117,6 @@ class Card {
                 this._ownerId = data.ownerId
                 this._likes = data.likes
                 this._currentUserId = data.owner._id
-
             })
             .then(() => { return this.createCard() })
 

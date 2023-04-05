@@ -1,7 +1,7 @@
 import { Popup } from "./Popup.js";
 export class PopupWithForm extends Popup {
-    constructor(popupSelector,escKeyCode,openedPopupSelector,validationConfig, submitForm) {
-        super(popupSelector,escKeyCode,openedPopupSelector);
+    constructor(popupSelector, escKeyCode, openedPopupSelector, validationConfig, submitForm) {
+        super(popupSelector, escKeyCode, openedPopupSelector);
         this._openedPopupSelector = openedPopupSelector;
         this._handleEscClose = this._handleEscClose.bind(this);
         this.setEventListeners = this.setEventListeners.bind(this);
@@ -14,29 +14,27 @@ export class PopupWithForm extends Popup {
         this.submitButton = this._popup.querySelector(this._validationConfig.submitButtonSelector);
         this._inputList = this._popup.querySelectorAll('.popup__text');
     }
-    
     _getInputValues() {
-        this._item={};
+        this._item = {};
         this._inputList.forEach((input) => {
-        this._item[((input.name).slice(5)).toLowerCase()]= input.value
+            this._item[((input.name).slice(5)).toLowerCase()] = input.value
         })
-        this._item.likes=[];
+        this._item.likes = [];
         return this._item;
     }
     setEventListeners() {
-super.setEventListeners();
+        super.setEventListeners();
         this._addCardForm.addEventListener('submit', this._submit)
     }
     closePopup() {
         super.closePopup();
         this._addCardForm.reset();
-
     }
     _submit(evt) {
         if (!this.submitButton.classList.contains(this._validationConfig.inactiveButtonClass)) {
-        evt.preventDefault();
-        this._submitForm(this._getInputValues());
-       // this.submitButton.classList.add(this._validationConfig.inactiveButtonClass);
-    }
+            evt.preventDefault();
+            this._submitForm(this._getInputValues());
+            // this.submitButton.classList.add(this._validationConfig.inactiveButtonClass);
+        }
     }
 }

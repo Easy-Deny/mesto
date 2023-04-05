@@ -3,32 +3,31 @@ export class Api {
         this.url = config.url
         this.headers = config.headers
     }
-
     getAllElements() {
         return fetch(`${this.url}/users/me`, {
             method: 'GET',
             headers: this.headers,
         })
-        .then((res) => {
-            if (res.ok) {
-                //console.log(data);
-                return res.json()
-            };
-            return Promise.reject('произошла ошибка');
-        })
+            .then((res) => {
+                if (res.ok) {
+                    //console.log(data);
+                    return res.json()
+                };
+                return Promise.reject('произошла ошибка');
+            })
     }
     getAllCards() {
         return fetch(`${this.url}/cards`, {
             method: 'GET',
             headers: this.headers,
         })
-        .then((res) => {
-            if (res.ok) {
-                //console.log(data);
-                return res.json()
-            };
-            return Promise.reject('произошла ошибка');
-        })
+            .then((res) => {
+                if (res.ok) {
+                    //console.log(data);
+                    return res.json()
+                };
+                return Promise.reject('произошла ошибка');
+            })
     }
     addElement(data) {
         return fetch(`${this.url}/cards`, {
@@ -47,7 +46,6 @@ export class Api {
                 return Promise.reject('произошла ошибка');
             })
     }
-
     deleteElement(id) {
         return fetch(`${this.url}/cards/${id}`, {
             method: 'DELETE',
@@ -78,7 +76,6 @@ export class Api {
                 return Promise.reject('произошла ошибка');
             })
     }
-
     addLike(id) {
         return fetch(`${this.url}/cards/${id}/likes`, {
             method: 'PUT',
@@ -91,7 +88,6 @@ export class Api {
                 return Promise.reject('произошла ошибка постановки лайка');
             })
     }
-
     deleteLike(id) {
         return fetch(`${this.url}/cards/${id}/likes`, {
             method: 'DELETE',
@@ -104,15 +100,14 @@ export class Api {
                 return Promise.reject('произошла ошибка снятия лайка');
             })
     }
-
-    editAvatar(data){
+    editAvatar(data) {
         //console.log(data);
         return fetch(`${this.url}/users/me/avatar`, {
             method: 'PATCH',
             headers: this.headers,
             body: JSON.stringify({
                 avatar: data
-        })
+            })
         })
             .then((res) => {
                 if (res.ok) {

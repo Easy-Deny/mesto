@@ -47,9 +47,7 @@ function refreshUserInfo() {
     })
     .then(refreshCards())
     .catch((err) => { console.log(`не загрузить данные профиля, Ошибка: ${err}`) })
-    
 }
-
 function refreshCards() {
     const cards = api.getAllCards();
     cards.then((data) => {
@@ -70,7 +68,6 @@ function refreshCards() {
 }
 
 refreshUserInfo();
-
 editFormValidation.enableValidation();
 addFormValidation.enableValidation();
 editAvatarFormValidation.enableValidation();
@@ -114,7 +111,6 @@ function createCard(item) {
     })
     return cardElement
 }
-
 const addCardPopup = new PopupWithForm(addCardPopupSelector, escKeyCode, openedPopupSelector, validationConfig, (item) => {
     const newCard = createCard(item);
     newCard.saveCard();
@@ -126,9 +122,6 @@ const openAddCardForm = function () {
     addFormValidation.resetValidation();
     addCardPopup.openPopup();
 }
-
-
-
 const editAvatarPopup = new PopupWithForm(editAvatarPopupSelector, escKeyCode, openedPopupSelector, validationConfig, (user) => {
     api.editAvatar(user.description)
         .then((data) => {
@@ -146,19 +139,14 @@ const openAvatarForm = function () {
     editAvatarPopup.openPopup();
     editAvatarFormValidation.resetValidation();
 }
-
 const messagePopup = new PopupWithMessage(messagePopupSelector, escKeyCode, openedPopupSelector, saveButtonSelector, () => {
     console.log('work')
     //cardElement._deleteCard
 })
 messagePopup.setEventListeners()
-
-
 editPopupOpenButtonElement.addEventListener('click', openEditProfileForm);
 addPopupOpenButtonElement.addEventListener('click', openAddCardForm);
 editAvatarButton.addEventListener('click', openAvatarForm);
-
-
 export { photoPopupElementImg, photoPopupElementName };
 
 

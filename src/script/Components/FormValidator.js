@@ -11,12 +11,6 @@ class FormValidator {
         });
         this._setEventListeners();
     }
- /*    enableValidationWithButton() {
-        this._form.addEventListener('submit', (evt) => {
-        evt.preventDefault();
-    });
-    this._setEventListeners();} */
-
     _setEventListeners() {
         this._toggleButtonState();
         this._inputList.forEach((inputElement) => {
