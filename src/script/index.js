@@ -41,8 +41,7 @@ function refreshUserInfo() {
     const userProfile = api.getAllElements();
     userProfile.then((data) => {
         currentUser = data;
-        profileName.textContent = currentUser.name;
-        profileDescription.textContent = currentUser.about;
+        profileInfo.setUserInfo(data.name, data.about)
         profileAvatar.src = currentUser.avatar;
     })
     .catch((err) => { console.log(`не загрузить данные профиля, Ошибка: ${err}`) })
