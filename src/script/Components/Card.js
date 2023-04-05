@@ -1,5 +1,5 @@
 class Card {
-    constructor(cardName, cardLink, ownerId, cardId, likes, tempElementSelector, handleCardClick, currentUserId, api, toggleButtonTextLoader, formEditProfile, messagePopup) {
+    constructor(cardName, cardLink, ownerId, cardId, likes, tempElementSelector, handleCardClick, currentUserId, api, toggleButtonTextLoader, formEditProfile, messagePopup, handleDeleteIconClick) {
         this._cardName = cardName;
         this._cardLink = cardLink;
         this._ownerId = ownerId;
@@ -16,7 +16,8 @@ class Card {
         this.toggleButtonTextLoader = toggleButtonTextLoader;
         this.formEditProfile = formEditProfile;
         this.messagePopup = messagePopup;
-        this.openPopupWithMessage = this.openPopupWithMessage.bind(this);
+        //this.openPopupWithMessage = this.openPopupWithMessage.bind(this);
+        this.handleDeleteIconClick = handleDeleteIconClick
     }
     _createEmptyCard(element) {
         this._tempElement = document.querySelector(element).content;
@@ -92,20 +93,15 @@ class Card {
                 .catch((err) => console.log(`не удалось снять лайк ${err}`));
         }
     }
-    openPopupWithMessage(){
-        this.messagePopup.setEvent(this._deleteCard)
-        this.messagePopup.openPopup();
-       // this. _deleteCard();
-    }
     _deleteCard(evt) {
-            this._api.deleteElement(this._cardId)
+        this._api.deleteElement(this._cardId)
             .then(() => { evt.target.closest('.element').remove() })
             .catch((err) => console.log(`не удалось удалить карточку. Ошибка: ${err}`));
     }
     _setEventListeners() {
         this._addEventListeners('.element__like-button', this._addReaction);
-        //this._addEventListeners('.element__delete-button', this.openPopupWithMessage);
-        this._addEventListeners('.element__delete-button', this. _deleteCard);
+        this._addEventListeners('.element__delete-button', this.handleDeleteIconClick);
+        //this._addEventListeners('.element__delete-button', this._deleteCard);
         this._addEventListeners('.element__img', (evt) => { this._handleCardClick(evt) });
     }
     createCard() {

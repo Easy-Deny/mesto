@@ -5,7 +5,7 @@ import Section from './Components/Section.js';
 import { PopupWithForm } from './Components/PopupWithForm.js';
 import UserInfo from './Components/UserInfo.js';
 import { PopupWithImage } from './Components/PopupWithImage';
-import { photoPopupSelector, validationConfig, editAvatarPopupSelector, messagePopupSelector, tempElementSelector, addCardPopupSelector, editProfilePopupSelector, cardContainer, escKeyCode, openedPopupSelector,saveButtonSelector } from "./Utils/constants.js";
+import { photoPopupSelector, validationConfig, editAvatarPopupSelector, messagePopupSelector, tempElementSelector, addCardPopupSelector, editProfilePopupSelector, cardContainer, escKeyCode, openedPopupSelector, saveButtonSelector } from "./Utils/constants.js";
 import { Api } from './Components/Api.js';
 import { PopupWithMessage } from './Components/PopupWithMessage.js';
 
@@ -107,7 +107,16 @@ const openEditProfileForm = function () {
     editProfilePopup.openPopup();
 }
 function createCard(item) {
-    const cardElement = new Card(item.name, item.description, item.ownerId, item.id, item.likes, tempElementSelector, handleCardClick, currentUser._id, cardApi, toggleButtonTextLoader, formEditProfile, messagePopup);
+    const cardElement = new Card(item.name, item.description, item.ownerId, item.id, item.likes, tempElementSelector, handleCardClick, currentUser._id, cardApi, toggleButtonTextLoader, formEditProfile, messagePopup, (item)=>{
+        messagePopup.openPopup();
+        messagePopup.setSubmitAction(() => {
+            console.log('delete2');
+            cardApi.deleteElement(item.id)
+                .then(() => { evt.target.closest('.element').remove() })
+                .then(() => messagePopup.closePopup())
+                .catch((err) => console.log(`не удалось удалить карточку. Ошибка: ${err}`));
+        })
+    })
     return cardElement
 }
 
@@ -145,10 +154,11 @@ const openAvatarForm = function () {
     editAvatarFormValidation.resetValidation();
 }
 
- const messagePopup = new PopupWithMessage(messagePopupSelector, escKeyCode, openedPopupSelector, saveButtonSelector, () => {console.log('work')
-//cardElement._deleteCard
+const messagePopup = new PopupWithMessage(messagePopupSelector, escKeyCode, openedPopupSelector, saveButtonSelector, () => {
+    console.log('work')
+    //cardElement._deleteCard
 })
-messagePopup.setEventListeners() 
+messagePopup.setEventListeners()
 
 
 editPopupOpenButtonElement.addEventListener('click', openEditProfileForm);
