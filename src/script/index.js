@@ -81,14 +81,11 @@ function handleCardClick(evt) {
 }
 const profileInfo = new UserInfo(profileName, profileDescription);
 const editProfilePopup = new PopupWithForm(editProfilePopupSelector, escKeyCode, openedPopupSelector, validationConfig, (user) => {
+    toggleButtonTextLoader(formEditProfile, 'Сохранение.....')
     api.editProfile(user)
-        .then((data) => {
-            toggleButtonTextLoader(formEditAvatar, 'Сохранение.....')
-            return data
-        })
         .then(() => { profileInfo.setUserInfo(user.name, user.description) })
         .then(() => { editProfilePopup.closePopup() })
-        .then(() => { toggleButtonTextLoader(formEditAvatar, 'Сохранить') })
+        .then(() => { toggleButtonTextLoader(formEditProfile, 'Сохранить') })
         .catch((err) => { console.log(`не удалось сохранить новый профиль, Ошибка: ${err}`) })
 })
 editProfilePopup.setEventListeners();
@@ -140,12 +137,12 @@ function createCard(item) {
             messagePopup.openPopup();
             messagePopup.removeEventListener();
             messagePopup.setSubmitAction(() => {
+                toggleButtonTextLoader(messageForm, 'Удаление...')
                 api.deleteElement(item)
-                    .then(() => toggleButtonTextLoader(messageForm, 'Сохранение...'))
                     .then(() => console.log(`карта id${item} удалена`))
                     .then(() => { evt.target.closest('.element').remove() })
                     .then(() => messagePopup.closePopup())
-                    .then(() => toggleButtonTextLoader(messageForm, 'Сохранить'))
+                    .then(() => toggleButtonTextLoader(messageForm, 'Да'))
                     .catch((err) => console.log(`не удалось удалить карточку. Ошибка: ${err}`));
             })
             messagePopup.addEventListener();
@@ -188,11 +185,8 @@ const openAddCardForm = function () {
     addCardPopup.openPopup();
 }
 const editAvatarPopup = new PopupWithForm(editAvatarPopupSelector, escKeyCode, openedPopupSelector, validationConfig, (user) => {
+    toggleButtonTextLoader(formEditAvatar, 'Сохранение.....')
     api.editAvatar(user.description)
-        .then((data) => {
-            toggleButtonTextLoader(formEditAvatar, 'Сохранение.....')
-            return data
-        })
         .then((data) => { profileAvatar.src = data.avatar })
         .then(() => editAvatarPopup.closePopup())
         .then(() => { toggleButtonTextLoader(formEditAvatar, 'Сохранить') })

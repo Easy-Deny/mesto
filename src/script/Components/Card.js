@@ -9,7 +9,7 @@ class Card {
         this._api = api;
         this._cardId = cardId;
         this._likes = likes;
-        this._deleteCard = this._deleteCard.bind(this);
+        //this._deleteCard = this._deleteCard.bind(this);
         this._addReaction = this._addReaction.bind(this);
         this.createCard = this.createCard.bind(this);
         this.toggleButtonTextLoader = toggleButtonTextLoader;
@@ -97,11 +97,11 @@ class Card {
                 .catch((err) => console.log(`не удалось снять лайк ${err}`)); */
         }
     }
-    _deleteCard(evt) {
+    /* _deleteCard(evt) {
         this._api.deleteElement(this._cardId)
             .then(() => { evt.target.closest('.element').remove() })
             .catch((err) => console.log(`не удалось удалить карточку. Ошибка: ${err}`));
-    }
+    } */
     _setEventListeners() {
         this._addEventListeners('.element__like-button', this._addReaction);
         this._addEventListeners('.element__delete-button', (evt)=>{this.handleDeleteIconClick(this._cardId,evt)});
