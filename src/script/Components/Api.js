@@ -9,26 +9,14 @@ export class Api {
             method: 'GET',
             headers: this.headers,
         })
-            .then((res) => {
-                if (res.ok) {
-                    //console.log(data);
-                    return res.json()
-                };
-                return Promise.reject('произошла ошибка');
-            })
+        .then((res) => { return this.checkServerStatus(res) })
     }
     getAllCards() {
         return fetch(`${this.url}/cards`, {
             method: 'GET',
             headers: this.headers,
         })
-            .then((res) => {
-                if (res.ok) {
-                    //console.log(data);
-                    return res.json()
-                };
-                return Promise.reject('произошла ошибка');
-            })
+        .then((res) => { return this.checkServerStatus(res) })
     }
     addElement(data) {
         return fetch(`${this.url}/cards`, {
@@ -39,26 +27,14 @@ export class Api {
                 link: data.link
             })
         })
-            .then((res) => {
-                if (res.ok) {
-                    //console.log(data);
-                    return res.json()
-                };
-                return Promise.reject('произошла ошибка');
-            })
+        .then((res) => { return this.checkServerStatus(res) })
     }
     deleteElement(id) {
         return fetch(`${this.url}/cards/${id}`, {
             method: 'DELETE',
             headers: this.headers
         })
-            .then((res) => {
-                if (res.ok) {
-                    //console.log(data);
-                    return res.json()
-                };
-                return Promise.reject('произошла ошибка');
-            })
+        .then((res) => { return this.checkServerStatus(res) })
     }
     editProfile(data) {
         return fetch(`${this.url}/users/me`, {
@@ -69,37 +45,21 @@ export class Api {
                 about: data.description
             })
         })
-            .then((res) => {
-                if (res.ok) {
-                    //console.log(data);
-                    return res.json()
-                };
-                return Promise.reject('произошла ошибка');
-            })
+        .then((res) => { return this.checkServerStatus(res) })
     }
     addLike(id) {
         return fetch(`${this.url}/cards/${id}/likes`, {
             method: 'PUT',
             headers: this.headers
         })
-            .then((res) => {
-                if (res.ok) {
-                    return res.json()
-                };
-                return Promise.reject('произошла ошибка постановки лайка');
-            })
+        .then((res) => { return this.checkServerStatus(res) })
     }
     deleteLike(id) {
         return fetch(`${this.url}/cards/${id}/likes`, {
             method: 'DELETE',
             headers: this.headers
         })
-            .then((res) => {
-                if (res.ok) {
-                    return res.json()
-                };
-                return Promise.reject('произошла ошибка снятия лайка');
-            })
+            .then((res) => { return this.checkServerStatus(res) })
     }
     editAvatar(data) {
         //console.log(data);
@@ -110,17 +70,18 @@ export class Api {
                 avatar: data
             })
         })
-            .then((res) => {//this.checkServerStatus(res)
-                 if (res.ok) {
+            .then((res) => { return this.checkServerStatus(res)
+                  /* if (res.ok) {
                     return res.json()
                 };
-                return Promise.reject('произошла ошибка'); 
+                return Promise.reject('произошла ошибка');   */
+                
             })
     }
     checkServerStatus(res){
         if (res.ok) {
             return res.json()
         };
-        return Promise.reject('произошла ошибка');
+        return Promise.reject('произошла ошибка');  
     }
 }

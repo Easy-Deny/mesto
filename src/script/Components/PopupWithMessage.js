@@ -6,7 +6,6 @@ export class PopupWithMessage extends Popup {
         this.setEventListeners = this.setEventListeners.bind(this);
         this._event = event;
         this._saveButton = this._popup.querySelector(buttonSelector);
-        //this._submitAction = this._submitAction.bind(this);
     }
     setEventListeners() {
         super.setEventListeners();
