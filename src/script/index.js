@@ -64,7 +64,7 @@ function refreshCards() {
             },
                 cardContainer);
         })
-        .then(() => { newSection.createSection() })
+        .then(() => { newSection.renderItems() })
     console.log(initialCards)
 }
 

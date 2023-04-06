@@ -8,7 +8,7 @@ export default class Section {
     _clear() {
         this._container.innerHTML = '';
     }
-    createSection() {
+    renderItems() {
         //this._initialArray.forEach(item => {
         this._initialArray.reduceRight((_, item) => {
             this._element = this._renderer(item);
