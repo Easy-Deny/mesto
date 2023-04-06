@@ -1,12 +1,12 @@
 class Card {
-    constructor(cardName, cardLink, ownerId, cardId, likes, tempElementSelector, handleCardClick, currentUserId, api, toggleButtonTextLoader, formEditProfile, messagePopup, handleDeleteIconClick, handleAddLike, handDeleteLike) {
+    constructor(cardName, cardLink, ownerId, cardId, likes, tempElementSelector, handleCardClick, currentUserId,/*  api, */ toggleButtonTextLoader, formEditProfile, messagePopup, handleDeleteIconClick, handleAddLike, handDeleteLike) {
         this._cardName = cardName;
         this._cardLink = cardLink;
         this._ownerId = ownerId;
         this._currentUserId = currentUserId;
         this._tempElementSelector = tempElementSelector;
         this._handleCardClick = handleCardClick;
-        this._api = api;
+        //this._api = api;
         this._cardId = cardId;
         this._likes = likes;
         //this._deleteCard = this._deleteCard.bind(this);

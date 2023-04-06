@@ -128,7 +128,7 @@ function createCard(item) {
         tempElementSelector,
         handleCardClick,
         currentUser._id,
-        api,
+        //api,
         toggleButtonTextLoader,
         formEditProfile,
         messagePopup,
