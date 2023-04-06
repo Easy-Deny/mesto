@@ -174,8 +174,21 @@ function createCard(item) {
     return cardElement
 }
 const addCardPopup = new PopupWithForm(addCardPopupSelector, escKeyCode, openedPopupSelector, validationConfig, (item) => {
+    console.log(item);
     const newCard = createCard(item);
-    newCard.saveCard();
+    // newCard.saveCard();
+    toggleButtonTextLoader(formEditProfile, 'Сохранение...')
+    api.addElement({
+        name: item.name,
+        link: item.description
+    })
+        .then((data) => {
+            newCard.refreshData(data)
+            return data
+        })
+        .then((data) => console.log(`сохранение карточки ${data._id}`))
+        .then(() => { toggleButtonTextLoader(formEditProfile, 'Сохранить') })
+        .catch((err) => { console.log(`Ошибка загрузки карты на сервер ${err}`) })
     newSection.addItem(newCard.createCard());
     addCardPopup.closePopup();
 })

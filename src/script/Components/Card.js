@@ -47,8 +47,8 @@ class Card {
         }
         return this._likeCounter
     }
-    getLikes(like){
-        this._likes=like;
+    getLikes(like) {
+        this._likes = like;
     }
     _isLiked(like) {
         this._liked = like.some(element => {
@@ -66,7 +66,7 @@ class Card {
     }
     _addReaction(evt) {
         if (!this._isLiked(this._likes)) {
-            this.handleAddLike(this._cardId, this._likeCounter, this._likes, this._toggleLikeButton,evt)
+            this.handleAddLike(this._cardId, this._likeCounter, this._likes, this._toggleLikeButton, evt)
             console.log('like');
             /* this._api.addLike(this._cardId)
                 .then((data) => {
@@ -81,7 +81,7 @@ class Card {
                 })
                 .catch((err) => console.log(`не удалось поставить лайк ${err}`)); */
         } else {
-            this.handDeleteLike(this._cardId, this._likeCounter, this._likes, this._toggleLikeButton,evt)
+            this.handDeleteLike(this._cardId, this._likeCounter, this._likes, this._toggleLikeButton, evt)
             console.log('dislike');
             /* this._api.deleteLike(this._cardId)
                 .then((data) => {
@@ -104,7 +104,7 @@ class Card {
     } */
     _setEventListeners() {
         this._addEventListeners('.element__like-button', this._addReaction);
-        this._addEventListeners('.element__delete-button', (evt)=>{this.handleDeleteIconClick(this._cardId,evt)});
+        this._addEventListeners('.element__delete-button', (evt) => { this.handleDeleteIconClick(this._cardId, evt) });
         //this._addEventListeners('.element__delete-button', this._deleteCard);
         this._addEventListeners('.element__img', (evt) => { this._handleCardClick(evt) });
     }
@@ -114,7 +114,7 @@ class Card {
         this._setEventListeners();
         return this._createdCard;
     }
-    saveCard() {
+    /* saveCard() {
         this._api.addElement({
             name: this._cardName,
             link: this._cardLink
@@ -133,6 +133,12 @@ class Card {
 
             .then(() => { this.toggleButtonTextLoader(this.formEditProfile, 'Сохранить') })
             .catch((err) => { console.log(`Ошибка загрузки карты на сервер ${err}`) })
+    } */
+    refreshData(data) {
+        this._cardId = data._id
+        this._ownerId = data.ownerId
+        this._likes = data.likes
+        this._currentUserId = data.owner._id
     }
 }
 export { Card };
