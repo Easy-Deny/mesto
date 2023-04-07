@@ -85,8 +85,9 @@ const editProfilePopup = new PopupWithForm(editProfilePopupSelector, escKeyCode,
     api.editProfile(user)
         .then(() => { profileInfo.setUserInfo(user.name, user.description) })
         .then(() => { editProfilePopup.closePopup() })
-        .then(() => { toggleButtonTextLoader(formEditProfile, 'Сохранить') })
+        //.then(() => { toggleButtonTextLoader(formEditProfile, 'Сохранить') })
         .catch((err) => { console.log(`не удалось сохранить новый профиль, Ошибка: ${err}`) })
+        .finally(toggleButtonTextLoader(formEditProfile, 'Сохранить'))
 })
 editProfilePopup.setEventListeners();
 const openEditProfileForm = function () {
@@ -96,28 +97,6 @@ const openEditProfileForm = function () {
     editFormValidation.resetValidation();
     editProfilePopup.openPopup();
 }
-/* function handleAddLike(cardId, likeCounter, likes, toggleLikeButton,evt) {
-    api.addLike(cardId)
-        .then((data) => {
-            likeCounter.textContent = data.likes.length;
-            likes = data.likes;
-            console.log(likeCounter);
-            return data.likes;
-        })
-        .then(() => { toggleLikeButton(evt) })
-        .catch((err) => console.log(`не удалось поставить лайк ${err}`));
-}
-function handDeleteLike(cardId, likeCounter, likes, toggleLikeButton,evt) {
-    api.deleteLike(cardId)
-        .then((data) => {
-            likeCounter.textContent = data.likes.length;
-            likes = data.likes
-            console.log(likeCounter.textContent);
-        }
-        )
-        .then(() => {toggleLikeButton(evt)})
-        .catch((err) => console.log(`не удалось снять лайк ${err}`));
-} */
 function createCard(item) {
     const cardElement = new Card(
         item.name,
@@ -128,7 +107,6 @@ function createCard(item) {
         tempElementSelector,
         handleCardClick,
         currentUser._id,
-        //api,
         toggleButtonTextLoader,
         formEditProfile,
         messagePopup,
@@ -142,8 +120,9 @@ function createCard(item) {
                     .then(() => console.log(`карта id${item} удалена`))
                     .then(() => { evt.target.closest('.element').remove() })
                     .then(() => messagePopup.closePopup())
-                    .then(() => toggleButtonTextLoader(messageForm, 'Да'))
-                    .catch((err) => console.log(`не удалось удалить карточку. Ошибка: ${err}`));
+                    //.then(() => toggleButtonTextLoader(messageForm, 'Да'))
+                    .catch((err) => console.log(`не удалось удалить карточку. Ошибка: ${err}`))
+                    .finally(toggleButtonTextLoader(messageForm, 'Да'))
             })
             messagePopup.addEventListener();
         },
@@ -176,7 +155,6 @@ function createCard(item) {
 const addCardPopup = new PopupWithForm(addCardPopupSelector, escKeyCode, openedPopupSelector, validationConfig, (item) => {
     console.log(item);
     const newCard = createCard(item);
-    // newCard.saveCard();
     toggleButtonTextLoader(formEditProfile, 'Сохранение...')
     api.addElement({
         name: item.name,
@@ -187,8 +165,9 @@ const addCardPopup = new PopupWithForm(addCardPopupSelector, escKeyCode, openedP
             return data
         })
         .then((data) => console.log(`сохранение карточки ${data._id}`))
-        .then(() => { toggleButtonTextLoader(formEditProfile, 'Сохранить') })
+        //.then(() => { toggleButtonTextLoader(formEditProfile, 'Сохранить') })
         .catch((err) => { console.log(`Ошибка загрузки карты на сервер ${err}`) })
+        .finally(toggleButtonTextLoader(formEditProfile, 'Сохранить'))
     newSection.addItem(newCard.createCard());
     addCardPopup.closePopup();
 })
@@ -202,8 +181,9 @@ const editAvatarPopup = new PopupWithForm(editAvatarPopupSelector, escKeyCode, o
     api.editAvatar(user.description)
         .then((data) => { profileAvatar.src = data.avatar })
         .then(() => editAvatarPopup.closePopup())
-        .then(() => { toggleButtonTextLoader(formEditAvatar, 'Сохранить') })
+        //.then(() => { toggleButtonTextLoader(formEditAvatar, 'Сохранить') })
         .catch((err) => { console.log(`не удалось сохранить новый аватар, Ошибка: ${err}`) })
+        .finally(toggleButtonTextLoader(formEditAvatar, 'Сохранить'))
 })
 editAvatarPopup.setEventListeners();
 

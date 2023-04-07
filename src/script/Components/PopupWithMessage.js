@@ -20,4 +20,5 @@ export class PopupWithMessage extends Popup {
     setSubmitAction(action) {
         this._submitAction = action;
     }
+   
 }
