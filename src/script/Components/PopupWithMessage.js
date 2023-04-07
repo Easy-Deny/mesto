@@ -8,16 +8,13 @@ export class PopupWithMessage extends Popup {
     }
     setEventListeners() {
         super.setEventListeners();
-        this._saveButton.addEventListener('click', this._submitAction);
-    }
-    addEventListener(){
-        this._saveButton.addEventListener('click', this._submitAction);
-    }
-    removeEventListener(){
-        this._saveButton.removeEventListener('click', this._submitAction);
+        this._saveButton.addEventListener('click', this._onSubmit.bind(this));
     }
     setSubmitAction(action) {
         this._submitAction = action;
     }
-   
+    _onSubmit(){
+        if (this._submitAction)
+            this._submitAction();
+     }
 }

@@ -112,19 +112,16 @@ function createCard(item) {
         messagePopup,
         //deleteCard
         (item, evt) => {
-            messagePopup.openPopup();
-            messagePopup.removeEventListener();
-            messagePopup.setSubmitAction(() => {
-                toggleButtonTextLoader(messageForm, 'Удаление...')
-                api.deleteElement(item)
-                    .then(() => console.log(`карта id${item} удалена`))
-                    .then(() => { evt.target.closest('.element').remove() })
-                    .then(() => messagePopup.closePopup())
-                    //.then(() => toggleButtonTextLoader(messageForm, 'Да'))
+            messagePopup.openPopup(); 
+            messagePopup.setSubmitAction(() => { 
+                toggleButtonTextLoader(messageForm, 'Удаление...') 
+                api.deleteElement(item)   
+                    .then(() => console.log(`карта id${item} удалена`))  
+                    .then(() => { evt.target.closest('.element').remove() })  
+                    .then(() => messagePopup.closePopup()) 
                     .catch((err) => console.log(`не удалось удалить карточку. Ошибка: ${err}`))
-                    .finally(toggleButtonTextLoader(messageForm, 'Да'))
+                    .finally(toggleButtonTextLoader(messageForm, 'Да')) 
             })
-            messagePopup.addEventListener();
         },
         // handleAddLike,
         (cardId, likeCounter, likes, toggleLikeButton, evt) => {
