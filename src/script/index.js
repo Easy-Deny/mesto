@@ -65,7 +65,7 @@ function refreshCards() {
                 cardContainer);
         })
         .then(() => { newSection.renderItems() })
-    console.log(initialCards)
+        .catch((err) => { console.log(`не удалось обновить карточки, Ошибка: ${err}`) })
 }
 
 refreshUserInfo();
