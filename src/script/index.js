@@ -73,14 +73,14 @@ editFormValidation.enableValidation();
 addFormValidation.enableValidation();
 editAvatarFormValidation.enableValidation();
 
-const imagePreview = new PopupWithImage(photoPopupSelector, escKeyCode, openedPopupSelector);
+const imagePreview = new PopupWithImage(photoPopupSelector);
 imagePreview.setEventListeners();
 function handleCardClick(evt) {
     const data = evt.target;
     imagePreview.openPopup(data);
 }
 const profileInfo = new UserInfo(profileName, profileDescription);
-const editProfilePopup = new PopupWithForm(editProfilePopupSelector, escKeyCode, openedPopupSelector, validationConfig, (user) => {
+const editProfilePopup = new PopupWithForm(editProfilePopupSelector, validationConfig, (user) => {
     toggleButtonTextLoader(formEditProfile, 'Сохранение.....')
     api.editProfile(user)
         .then(() => { profileInfo.setUserInfo(user.name, user.description) })
@@ -152,7 +152,7 @@ function createCard(item) {
     )
     return cardElement
 }
-const addCardPopup = new PopupWithForm(addCardPopupSelector, escKeyCode, openedPopupSelector, validationConfig, (item) => {
+const addCardPopup = new PopupWithForm(addCardPopupSelector, validationConfig, (item) => {
     console.log(item);
     const newCard = createCard(item);
     toggleButtonTextLoader(formEditProfile, 'Сохранение...')
@@ -176,7 +176,7 @@ const openAddCardForm = function () {
     addFormValidation.resetValidation();
     addCardPopup.openPopup();
 }
-const editAvatarPopup = new PopupWithForm(editAvatarPopupSelector, escKeyCode, openedPopupSelector, validationConfig, (user) => {
+const editAvatarPopup = new PopupWithForm(editAvatarPopupSelector, validationConfig, (user) => {
     toggleButtonTextLoader(formEditAvatar, 'Сохранение.....')
     api.editAvatar(user.description)
         .then((data) => { profileAvatar.src = data.avatar })
@@ -191,10 +191,7 @@ const openAvatarForm = function () {
     editAvatarPopup.openPopup();
     editAvatarFormValidation.resetValidation();
 }
-const messagePopup = new PopupWithMessage(messagePopupSelector, escKeyCode, openedPopupSelector, saveButtonSelector, () => {
-    console.log('work')
-    //cardElement._deleteCard
-})
+const messagePopup = new PopupWithMessage(messagePopupSelector, saveButtonSelector)
 messagePopup.setEventListeners()
 editPopupOpenButtonElement.addEventListener('click', openEditProfileForm);
 addPopupOpenButtonElement.addEventListener('click', openAddCardForm);

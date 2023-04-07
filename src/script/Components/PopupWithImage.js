@@ -1,8 +1,7 @@
 import { Popup } from "./Popup.js";
 export class PopupWithImage extends Popup {
-    constructor(popupSelector, escKeyCode,  openedPopupSelector  ) {
-        super(popupSelector, escKeyCode, openedPopupSelector );
-        //this._openedPopupSelector = openedPopupSelector;
+    constructor(popupSelector) {
+        super(popupSelector);
         this.popupSelector = popupSelector;
         this._handleEscClose = this._handleEscClose.bind(this);
         this.setEventListeners = this.setEventListeners.bind(this);
